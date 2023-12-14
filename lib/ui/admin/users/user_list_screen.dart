@@ -2,10 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/repository/repository.dart';
+import 'package:ltss/ui/admin/dashboard/bloc/dashboard_screen_bloc.dart';
 import 'package:ltss/ui/admin/users/data_view/user_list_data_grid.dart';
 import 'package:ltss/ui/admin/users/user_list_screen_cubit.dart';
-import 'package:ltss/ui/common/add_user/add_user.dart';
-import 'package:ltss/ui/common/add_user/add_user_cubit.dart';
 import 'package:ltss/ui/widgets/widgets.dart';
 import 'package:ltss/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
@@ -57,27 +56,25 @@ class _UserListScreenState extends State<UserListScreen> {
               if (state is LoadingUserStats) {
                 return Shimmer.fromColors(
                     baseColor: Theme.of(context).colorScheme.primaryContainer,
-                    highlightColor: Theme.of(context).colorScheme.inversePrimary,
+                    highlightColor:
+                        Theme.of(context).colorScheme.inversePrimary,
                     child: Row(
                       children: [
                         Container(
-                          width:150,
-                          height:80,
+                          width: 150,
+                          height: 80,
                           margin: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.circular(8)
-                          ),
+                              borderRadius: BorderRadius.circular(8)),
                         ),
                         Container(
-                          width:150,
-                          height:80,
+                          width: 150,
+                          height: 80,
                           margin: const EdgeInsets.all(8),
-
                           decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(8)
-                          ),
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(8)),
                         ),
                       ],
                     ));
@@ -98,7 +95,7 @@ class _UserListScreenState extends State<UserListScreen> {
                     const Spacer(),
                     FilledButton.icon(
                         onPressed: () {
-                          showDialog(
+                          /*showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return Dialog(
@@ -118,7 +115,11 @@ class _UserListScreenState extends State<UserListScreen> {
                                     ),
                                   ),
                                 );
-                              });
+                              });*/
+                          context
+                              .read<DashboardScreenBloc>()
+                              .add(ToggleAddUserPage(role: widget.type));
+
                         },
                         icon: const Icon(Icons.add),
                         label: const Text("Add"))
@@ -153,14 +154,24 @@ class _UserListScreenState extends State<UserListScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SearchView(onTextChanged: (text) {}, onSearch: (text) {
-                  context.read<UserListScreenCubit>().searchUser(text);
-                }),
+                SearchView(
+                    onTextChanged: (text) {},
+                    onSearch: (text) {
+                      context.read<UserListScreenCubit>().searchUser(text);
+                    }),
                 BlocBuilder<UserListScreenCubit, UserListScreenState>(
                   builder: (context, state) {
                     if (state is ReceivedUsers) {
                       final users = state.users;
-                      final userDataSourse = UserDataSource(users: users);
+                      final userDataSource = UserDataSource(
+                          users: users,
+                          onViewClick: (int id) {
+                            var user =
+                                users.firstWhere((element) => element.id == id);
+                            context
+                                .read<DashboardScreenBloc>()
+                                .add(ToggleUserDetailPage(userId: id));
+                          });
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SfDataGridTheme(
@@ -169,44 +180,64 @@ class _UserListScreenState extends State<UserListScreen> {
                                   .colorScheme
                                   .primaryContainer),
                           child: SfDataGrid(
-                              footer: users.isEmpty?const Center(child: Text("No data available"),):null,
+                            rowHeight: 24,
+                            headerRowHeight: 24,
+                              footer: users.isEmpty
+                                  ? const Center(
+                                      child: Text("No data available"),
+                                    )
+                                  : null,
                               gridLinesVisibility: GridLinesVisibility.both,
                               headerGridLinesVisibility:
                                   GridLinesVisibility.both,
-                              source: userDataSourse,
+                              source: userDataSource,
                               columns: <GridColumn>[
                                 GridColumn(
                                   columnName: 'id',
                                   width: 50,
                                   label: Container(
-                                      padding: EdgeInsets.all(8.0),
                                       alignment: Alignment.center,
-                                      child: Text('ID')),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                                      child: const Text('ID')),
                                 ),
                                 GridColumn(
-                                    columnName: 'name',
+                                    columnName: 'first_name',
                                     columnWidthMode: ColumnWidthMode.fill,
                                     label: Container(
-                                        padding: EdgeInsets.all(8.0),
                                         alignment: Alignment.centerLeft,
-                                        child: Text('Name'))),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: const Text('First name'))),
+                                GridColumn(
+                                    columnName: 'last_name',
+                                    columnWidthMode: ColumnWidthMode.fill,
+                                    label: Container(
+                                        alignment: Alignment.centerLeft,
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: const Text('Last name'))),
                                 GridColumn(
                                     columnName: 'mobile_no',
                                     columnWidthMode: ColumnWidthMode.fill,
                                     label: Container(
-                                        padding: EdgeInsets.all(8.0),
                                         alignment: Alignment.centerLeft,
-                                        child: Text('Mobile No'))),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: const Text('Mobile No'))),
                                 GridColumn(
                                     columnName: 'email',
                                     columnWidthMode: ColumnWidthMode.fill,
                                     label: Container(
-                                        padding: EdgeInsets.all(8.0),
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: const Text(
                                           'Email',
                                           softWrap: false,
                                         ))),
+                                GridColumn(
+                                    columnName: 'view',
+                                    columnWidthMode: ColumnWidthMode.auto,
+                                    label: Container(
+                                        alignment: Alignment.centerLeft,
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: const Text('View'))),
                               ]),
                         ),
                       );

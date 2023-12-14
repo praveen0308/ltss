@@ -2,17 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/base/base.dart';
+import 'package:ltss/models/api/entity/user_entity.dart';
+import 'package:ltss/ui/admin/dashboard/bloc/dashboard_screen_bloc.dart';
 import 'package:ltss/ui/common/add_user/add_kyc_detail/kyc_detail.dart';
 import 'package:ltss/ui/common/add_user/add_user_cubit.dart';
 import 'package:ltss/ui/common/add_user/personal_detail/personal_detail.dart';
-import 'package:ltss/utils/utils.dart';
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:ltss/utils/operations.dart';
 
 @RoutePage()
 class AddUserScreen extends StatefulWidget implements AutoRouteWrapper {
   final UserRole userTypeAdding;
+  final UserEntity? userEntity;
 
-  const AddUserScreen({super.key, required this.userTypeAdding});
+  const AddUserScreen({super.key, required this.userTypeAdding, this.userEntity});
 
   @override
   State<AddUserScreen> createState() => _AddUserScreenState();
@@ -31,6 +34,9 @@ class AddUserScreen extends StatefulWidget implements AutoRouteWrapper {
 class _AddUserScreenState extends State<AddUserScreen> with BasePageState {
   final PageController _pageController = PageController();
 
+  late UserEntity _userEntity;
+  var isActive = true;
+  var operation = Operations.add;
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddUserCubit, AddUserState>(
@@ -43,7 +49,17 @@ class _AddUserScreenState extends State<AddUserScreen> with BasePageState {
         }
       },
       child: SafeArea(
-          child: Scaffold(body: BlocBuilder<AddUserCubit, AddUserState>(
+          child: Scaffold(appBar: AppBar(
+            title: Text("${operation.isAdd() ? "Add" : "Update"} User"),
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    context.read<DashboardScreenBloc>().add(Empty());
+                  },
+                  icon: const Icon(Icons.close))
+            ],
+          ),body: BlocBuilder<AddUserCubit, AddUserState>(
         builder: (context, state) {
           if (state is AddingUserData) {
             return const Center(

@@ -59,7 +59,9 @@ class UserDashboardScreenCubit extends BaseCubit<UserDashboardScreenState> {
       child: const HomePage(),
     );
     var transactionPage = BlocProvider(
-      create: (context) => TransactionsPageCubit(),
+      create: (context) => TransactionsPageCubit(
+        instanceOf<DMTRepository>(context)
+      ),
       child: const TransactionsPage(),
     );
     var accountPage = BlocProvider(

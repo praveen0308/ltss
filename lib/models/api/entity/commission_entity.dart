@@ -1,3 +1,6 @@
+import 'package:ltss/base/base.dart';
+import 'package:tuple/tuple.dart';
+
 class CommissionEntity {
   CommissionEntity({
       this.commissionId, 
@@ -45,4 +48,11 @@ CommissionEntity copyWith({  int? commissionId,
     return map;
   }
 
+  List<Tuple2> getValues(){
+    if(value!=null){
+      return splitIntoTuples(value!);
+    }else{
+      return [];
+    }
+  }
 }

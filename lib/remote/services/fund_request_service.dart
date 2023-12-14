@@ -29,7 +29,12 @@ abstract class FundRequestService {
 
   @PUT("fund_requests/{request_id}")
   Future<FundRequestEntity> updateFundRequest(@Path("request_id") int requestId,
-      @Query("amount") int amount, @Query("request_status") String status);
+      @Query("receiver_id") int receiverId, @Query("amount") int amount);
+
+  @PUT("fund_requests/update_status/{request_id}")
+  Future<FundRequestEntity> updateFundRequestStatus(
+      @Path("request_id") int requestId,
+      @Query("request_status") String status);
 
   @DELETE("fund_requests/{request_id}")
   Future<void> deleteFundRequest(@Path("request_id") int requestId);

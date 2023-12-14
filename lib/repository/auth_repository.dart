@@ -34,10 +34,11 @@ class AuthRepository with BaseRepository {
     try {
       var result = await _authService.getProfile("Bearer $token");
       await _sessionManager.updateUserId(result.id ?? 0);
-      await _sessionManager.updateRoleId(result.role_id ?? 0);
-      await _sessionManager.updateName(result.name ?? "");
+      await _sessionManager.updateRoleId(result.roleId ?? 0);
+      await _sessionManager.updateFirstName(result.firstName ?? "");
+      await _sessionManager.updateLastName(result.lastName ?? "");
       await _sessionManager.updateEmail(result.email ?? "");
-      await _sessionManager.updateMobileNumber(result.mobile_no ?? "");
+      await _sessionManager.updateMobileNumber(result.mobileNo ?? "");
       await _sessionManager.updateAddress(result.address ?? "");
       return ApiResult.success(result);
     } on Exception catch (e) {
@@ -46,15 +47,16 @@ class AuthRepository with BaseRepository {
   }
 
   Future<ApiResult<UserEntity>> updateProfile(
-      {String? name, String? email, String? address}) async {
+      {String? firstName,String? lastName, String? email, String? address}) async {
     var token = TokenManager.getToken(_preferences);
 
     try {
       var result = await _authService.updateProfile(
           "Bearer $token",
           UpdateProfileRequestModel(
-              name: name, email: email, address: address));
-      await _sessionManager.updateName(result.name ?? "");
+              firstName: firstName,lastName: lastName, email: email, address: address));
+      await _sessionManager.updateFirstName(result.firstName ?? "");
+      await _sessionManager.updateLastName(result.lastName ?? "");
       await _sessionManager.updateEmail(result.email ?? "");
       await _sessionManager.updateAddress(result.address ?? "");
       return ApiResult.success(result);

@@ -29,9 +29,9 @@ class BankRepository with BaseRepository {
     }
   }
 
-  Future<ApiResult<BankEntity>> addNewBank(String name) async {
+  Future<ApiResult<BankEntity>> addNewBank(BankEntity bankEntity) async {
     try {
-      var result = await _bankService.addNewBank(name);
+      var result = await _bankService.addNewBank(bankEntity);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
@@ -48,9 +48,9 @@ class BankRepository with BaseRepository {
   }
 
   Future<ApiResult<BankEntity>> updateBank(
-      int bankId, String name, bool isActive) async {
+      int bankId, BankEntity bankEntity) async {
     try {
-      var result = await _bankService.updateBank(bankId, name, isActive);
+      var result = await _bankService.updateBank(bankId, bankEntity);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

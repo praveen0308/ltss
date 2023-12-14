@@ -13,14 +13,16 @@ class EditProfileCubit extends BaseCubit<EditProfileState> {
   Future<void> fetchUserData() async {
     emit(state.copyWith(status: EditProfileStatus.initializing));
     try {
-      var name = await _sessionManager.getName();
+      var firstName = await _sessionManager.getFirstName();
+      var lastName = await _sessionManager.getLastName();
       var address = await _sessionManager.getAddress();
       var email = await _sessionManager.getEmail();
       var mobileNumber = await _sessionManager.getMobileNumber();
 
       emit(state.copyWith(
           status: EditProfileStatus.initializationSuccess,
-          name: name,
+          firstName: firstName,
+          lastName: lastName,
           address: address,
           email: email,
           mobileNumber: mobileNumber));
@@ -30,11 +32,11 @@ class EditProfileCubit extends BaseCubit<EditProfileState> {
   }
 
   Future<void> updateProfile(
-      String? name, String? email, String? address) async {
+      String? firstName,String? lastName, String? email, String? address) async {
     emit(state.copyWith(status: EditProfileStatus.loading));
 
     var result = await _authRepository.updateProfile(
-        name: name, email: email, address: address);
+        firstName: firstName,lastName: lastName, email: email, address: address);
 
     result.when(success: (result) {
       emit(state.copyWith(

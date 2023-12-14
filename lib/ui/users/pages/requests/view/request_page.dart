@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/models/api/entity/fund_request_entity.dart';
 import 'package:ltss/res/res.dart';
+import 'package:ltss/routes/routes.dart';
 import 'package:ltss/ui/users/pages/requests/view/request_page_cubit.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';
+import 'package:ltss/ui/widgets/view_highlighted_label.dart';
 import 'package:ltss/ui/widgets/view_loading.dart';
 
 class RequestPage extends StatefulWidget {
@@ -50,14 +53,18 @@ class _RequestPageState extends State<RequestPage> {
         itemBuilder: (context, index) {
           var request  = fundRequests[index];
           return ListTile(
+            onTap: (){
+              AutoRouter.of(context).push(FundRequestDetailRoute(data: request));
+            },
             leading: CircleAvatar(child: Text(request.sender.toString().substring(0,1)),),
             title: Text(request.sender.toString()),
             subtitle: Text(request.getFormattedAddedOn().toString()),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(decoration: BoxDecoration(color: AppColors.primaryLightest,borderRadius: BorderRadius.circular(5)),padding: const EdgeInsets.all(4),child: Text(request.status.toString(),style:const TextStyle(fontSize: 10))),
-                Text("₹${request.amount?.toStringAsFixed(0)}",style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),)
+                Text("₹${request.amount?.toStringAsFixed(0)}",style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                HighlightedLabel(text: request.status??"Nil",),
               ],
             ),
           );

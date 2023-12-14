@@ -19,22 +19,26 @@ class AddUserCubit extends BaseCubit<AddUserState> {
   int? userId;
   UserRole? userType;
 
-  String? name;
+  String? firstName;
+  String? lastName;
   String? email;
   String? mobileNo;
   String? address;
+  String? pincode;
   String? pan;
   String? aadhaar;
   File? shopImage;
   File? profileImage;
 
-  void saveUserData(UserRole userType, String name, String mobileNo,
-      String email, String address) {
+  void saveUserData(UserRole userType, String firstName, String lastName,
+      String mobileNo, String email, String address, String pincode) {
     this.userType = userType;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.mobileNo = mobileNo;
     this.address = address;
+    this.pincode = pincode;
     updateActiveStep(1);
   }
 
@@ -46,10 +50,13 @@ class AddUserCubit extends BaseCubit<AddUserState> {
     this.profileImage = profileImage;
 
     addUser(UserEntity(
-        name: name,
-        mobile_no: mobileNo,
+        firstName: firstName,
+        lastName: lastName,
+        mobileNo: mobileNo,
         email: email,
-        role_id: userType?.roleId ?? 0,is_active: true,restrictions: ""));
+        roleId: userType?.roleId ?? 0,
+        isActive: true,
+        restrictions: ""));
   }
 
   void updateActiveStep(int step) {
@@ -72,7 +79,7 @@ class AddUserCubit extends BaseCubit<AddUserState> {
   Future<void> addKYCDetail() async {
     emit(AddingUserKYC());
     var result = await _kycRepository.postKYC(
-        userId!, pan!, aadhaar!, shopImage!, profileImage!);
+        userId: userId!, pan!, aadhaar!, shopImage!, profileImage!);
     result.when(success: (user) {
       emit(AddKYCSuccessful());
     }, failure: (e) {

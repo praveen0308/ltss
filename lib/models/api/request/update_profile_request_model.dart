@@ -1,27 +1,35 @@
 class UpdateProfileRequestModel {
   UpdateProfileRequestModel({
-      this.name, 
-      this.email, 
+      this.firstName,
+      this.lastName,
+      this.email,
       this.address,});
 
   UpdateProfileRequestModel.fromJson(dynamic json) {
-    name = json['name'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
     email = json['email'];
     address = json['address'];
   }
-  String? name;
+  String? firstName;
+  String? lastName;
   String? email;
   String? address;
-UpdateProfileRequestModel copyWith({  String? name,
+UpdateProfileRequestModel copyWith({
+  String? firstName,
+  String? lastName,
   String? email,
   String? address,
-}) => UpdateProfileRequestModel(  name: name ?? this.name,
+}) => UpdateProfileRequestModel(
+  firstName: firstName ?? this.firstName,
+  lastName: lastName ?? this.lastName,
   email: email ?? this.email,
   address: address ?? this.address,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['name'] = name;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
     map['email'] = email;
     map['address'] = address;
     return map;

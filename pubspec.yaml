@@ -46,6 +46,10 @@ dependencies:
   syncfusion_flutter_datagrid: ^23.1.40
   toggle_switch: ^2.1.0
   package_info_plus: ^4.2.0
+  search_choices: ^2.2.6
+  tuple: ^2.0.2
+  lottie: ^2.7.0
+  flutter_widget_from_html: ^0.14.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,3 +65,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - lib/models/api/entity/
+
+flutter_assets_generator:
+  path_ignore: [lib/]

@@ -15,8 +15,7 @@ abstract class ChargeService {
   factory ChargeService(Dio dio, {String baseUrl}) = _ChargeService;
 
   @GET("charges/")
-  Future<List<ChargeEntity>> getAllCharges();
-
+  Future<List<ChargeEntity>> getAllCharges(@Query("service_id") int serviceId);
 
   @POST("charges/")
   Future<ChargeEntity> addNewCharge(@Body() CreateChargeRequestModel requestModel);

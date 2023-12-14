@@ -17,7 +17,7 @@ class HomePageCubit extends BaseCubit<HomePageState> {
   Future<void> loadData() async {
     emit(LoadingHome());
     var userId = await _sessionManager.getUserId();
-    var name = await _sessionManager.getName();
+    var name = await _sessionManager.getFirstName();
     var roleId = await _sessionManager.getRoleId();
     var role = UserRole.getUserRole(roleId);
 

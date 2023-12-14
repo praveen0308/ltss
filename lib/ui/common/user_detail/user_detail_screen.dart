@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
+import 'package:ltss/ui/admin/dashboard/bloc/dashboard_screen_bloc.dart';
 import 'package:ltss/ui/common/user_detail/user_detail_cubit.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';
 import 'package:ltss/ui/widgets/view_loading.dart';
@@ -40,9 +43,9 @@ class _UserDetailScreenState extends State<UserDetailScreen>
 
   bool blockEnabled = false;
   bool unBlockEnabled = false;
-  bool editProfileEnabled = false;
 
   late UserDetailEntity user;
+
   @override
   void initState() {
     context.read<UserDetailCubit>().fetchUserDetail(userId: widget.userId);
@@ -53,18 +56,30 @@ class _UserDetailScreenState extends State<UserDetailScreen>
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: Platform.isAndroid,
+        actions: [
+          if (Platform.isWindows)
+            IconButton(
+                onPressed: () {
+                  context.read<DashboardScreenBloc>().add(Empty());
+                },
+                icon: const Icon(Icons.clear))
+        ],
+      ),
       body: BlocConsumer<UserDetailCubit, UserDetailState>(
         listener: (context, state) {
           showLoading(state is PerformingAction);
-          if(state is PerformActionFailed){
+          if (state is PerformActionFailed) {
             showSnackBar(context, state.msg);
           }
-          if(state is ActionSuccessful){
+          if (state is ActionSuccessful) {
             showSnackBar(context, state.msg);
-            context.read<UserDetailCubit>().fetchUserDetail(userId: widget.userId);
+            context
+                .read<UserDetailCubit>()
+                .fetchUserDetail(userId: widget.userId);
           }
-          if(state is OnDataLoaded){
+          if (state is OnDataLoaded) {
             user = state.data;
             _email.text = user.email ?? "";
             _mobile.text = user.mobileNo ?? "";
@@ -74,172 +89,162 @@ class _UserDetailScreenState extends State<UserDetailScreen>
 
             blockEnabled = state.blockEnabled;
             unBlockEnabled = state.unblockEnabled;
-            editProfileEnabled = state.editProfileEnabled;
           }
         },
         builder: (context, state) {
-          if(state is LoadingData){
+          if (state is LoadingData) {
             return const LoadingView();
           }
-          if(state is NoData){
+          if (state is NoData) {
             return const ErrorPageView(
               msg: "NO DATA",
             );
           }
-          if(state is DataLoadFailed){
+          if (state is DataLoadFailed) {
             return ErrorPageView(
               msg: state.msg,
             );
           }
           return Padding(
-            padding:
-            const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        NetworkImageView(url: user.profileImage),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(user.name ?? "",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18)),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              HighlightedLabel(
-                                  text: UserRole.getUserRoleName(
-                                      user.roleId?.toInt()) ??
-                                      "")
-                            ],
+                    NetworkImageView(url: user.profileImage.toString()),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(user.getName() ?? "",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 18)),
+                          const SizedBox(
+                            height: 5,
                           ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    WalletView(balance: user.walletBalance ?? 0),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardItemView(
-                              title: "Requests",
-                              subTitle: user.requestCount.toString(),
-                              onClick: () {}),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: DashboardItemView(
-                              subTitle: user.userCount.toString(),
-                              title: "Users",
-                              onClick: () {}),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 32, bottom: 8),
-                      child: Text(
-                        "Details",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
+                          HighlightedLabel(
+                              text: UserRole.getUserRoleName(
+                                      user.roleId?.toInt()) ??
+                                  "")
+                        ],
                       ),
-                    ),
-                    TextInputFieldView(
-                      label: "Email",
-                      textEditingController: _email,
-                      isEnabled: false,
-                    ),
-                    TextInputFieldView(
-                      label: "Mobile No.",
-                      textEditingController: _mobile,
-                      isEnabled: false,
-                    ),
-                    TextInputFieldView(
-                      label: "Address",
-                      textEditingController: _address,
-                      isEnabled: false,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 32, bottom: 8),
-                      child: Text(
-                        "KYC Details",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    TextInputFieldView(
-                      label: "AADHAAR",
-                      textEditingController: _aadhaar,
-                      isEnabled: false,
-                    ),
-                    TextInputFieldView(
-                      label: "PAN",
-                      textEditingController: _pan,
-                      isEnabled: false,
-                    ),
-                    label("Shop Image"),
-                    NetworkImageView(
-                      url: user.shopImage,
-                      width: double.infinity,
-                      height: 200,
-                      withErrorMsg: true,
-                    ),
-                    label("Profile Image"),
-                    NetworkImageView(
-                        url: user.profileImage,
-                        width: double.infinity,
-                        height: 200,
-                        withErrorMsg: true),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    if (blockEnabled)
-                      OutlinedButton(
-                          onPressed: () {
-                            context
-                                .read<UserDetailCubit>()
-                                .blockUser(userId: widget.userId);
-                          },
-                          child: const Text("Block")),
-                    if (unBlockEnabled)
-                      OutlinedButton(
-                          onPressed: () {
-                            context.read<UserDetailCubit>().blockUser(
-                                userId: widget.userId, status: true);
-                          },
-                          child: const Text("Unblock")),
-                    if (editProfileEnabled)
-                      OutlinedButton(
-                          onPressed: () {
-                            AutoRouter.of(context)
-                                .push(const EditProfileRoute());
-                          },
-                          child: const Text("Edit Profile")),
+                    )
                   ],
-                )),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                WalletView(balance: user.walletBalance ?? 0),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: DashboardItemView(
+                          title: "Requests",
+                          subTitle: user.requestCount.toString(),
+                          onClick: () {}),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: DashboardItemView(
+                          subTitle: user.userCount.toString(),
+                          title: "Users",
+                          onClick: () {}),
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 32, bottom: 8),
+                  child: Text(
+                    "Details",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                TextInputFieldView(
+                  label: "Email",
+                  textEditingController: _email,
+                  isEnabled: false,
+                ),
+                TextInputFieldView(
+                  label: "Mobile No.",
+                  textEditingController: _mobile,
+                  isEnabled: false,
+                ),
+                TextInputFieldView(
+                  label: "Address",
+                  textEditingController: _address,
+                  isEnabled: false,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 32, bottom: 8),
+                  child: Text(
+                    "KYC Details",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                TextInputFieldView(
+                  label: "AADHAAR",
+                  textEditingController: _aadhaar,
+                  isEnabled: false,
+                ),
+                TextInputFieldView(
+                  label: "PAN",
+                  textEditingController: _pan,
+                  isEnabled: false,
+                ),
+                label("Shop Image"),
+                NetworkImageView(
+                  url: user.shopImage.toString(),
+                  width: double.infinity,
+                  height: 200,
+                  withErrorMsg: true,
+                ),
+                label("Profile Image"),
+                NetworkImageView(
+                    url: user.profileImage.toString(),
+                    width: double.infinity,
+                    height: 200,
+                    withErrorMsg: true),
+                const SizedBox(
+                  height: 32,
+                ),
+                if (blockEnabled)
+                  OutlinedButton(
+                      onPressed: () {
+                        context
+                            .read<UserDetailCubit>()
+                            .blockUser(userId: widget.userId);
+                      },
+                      child: const Text("Block")),
+                if (unBlockEnabled)
+                  OutlinedButton(
+                      onPressed: () {
+                        context
+                            .read<UserDetailCubit>()
+                            .blockUser(userId: widget.userId, status: true);
+                      },
+                      child: const Text("Unblock")),
+              ],
+            )),
           );
-
         },
       ),
     ));

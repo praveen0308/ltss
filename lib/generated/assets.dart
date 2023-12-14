@@ -12,5 +12,6 @@ class Assets {
   static const String assetsIcLogo = 'assets/ic_logo.png';
   static const String assetsImgLoading = 'assets/img_loading.png';
   static const String assetsImgOtp = 'assets/img_otp.png';
+  static const String assetsTnc = 'assets/tnc.txt';
 
 }

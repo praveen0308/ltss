@@ -167,13 +167,13 @@ class _FundRequestService implements FundRequestService {
   @override
   Future<FundRequestEntity> updateFundRequest(
     int requestId,
+    int receiverId,
     int amount,
-    String status,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      r'receiver_id': receiverId,
       r'amount': amount,
-      r'request_status': status,
     };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
@@ -186,6 +186,36 @@ class _FundRequestService implements FundRequestService {
             .compose(
               _dio.options,
               'fund_requests/${requestId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = FundRequestEntity.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FundRequestEntity> updateFundRequestStatus(
+    int requestId,
+    String status,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'request_status': status};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<FundRequestEntity>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'fund_requests/update_status/${requestId}',
               queryParameters: queryParameters,
               data: _data,
             )

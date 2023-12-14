@@ -1,3 +1,7 @@
+import 'package:tuple/tuple.dart';
+
+import '../../../utils/ext_methods.dart';
+
 class ChargeEntity {
   ChargeEntity({
       this.chargeId, 
@@ -45,4 +49,11 @@ ChargeEntity copyWith({  int? chargeId,
     return map;
   }
 
+  List<Tuple2<String,String>> getValues(){
+    if(value!=null){
+      return splitIntoTuples(value!);
+    }else{
+      return [];
+    }
+  }
 }

@@ -15,9 +15,13 @@ abstract class KYCService {
   @POST("kyc/")
   @MultiPart()
   Future<PostKycResponse> addKYCDetail(
+      @Header("Authorization") String token,
       @Part(name: "user_id") int userId,
       @Part(name: "pan") String pan,
       @Part(name: "aadhaar") String aadhaar,
       @Part(name: "shop_image") File shopImage,
       @Part(name: "profile_image") File profileImage);
+
+  @GET("kyc/status")
+  Future<bool> kycStatus(@Header("Authorization") String token,);
 }

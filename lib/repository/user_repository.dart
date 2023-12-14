@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ltss/base/base_repository.dart';
 import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/local/token_manager.dart';
+import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/models/api/entity/user_stats.dart';
@@ -25,6 +26,15 @@ class UserRepository with BaseRepository {
   Future<ApiResult<List<UserEntity>>> getAllUsers() async {
     try {
       var result = await _userService.getAllUsers();
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+
+  Future<ApiResult<List<BankVendor>>> getDmtVendors() async {
+    try {
+      var result = await _userService.getDMTVendors();
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
@@ -63,9 +73,9 @@ class UserRepository with BaseRepository {
     }
   }
 
-  Future<ApiResult<UserEntity>> addNewUser(UserEntity userEntity) async {
+  Future<ApiResult<UserEntity>> addNewUser(UserEntity userEntity,{int? bankId}) async {
     try {
-      var result = await _userService.createUser(userEntity);
+      var result = await _userService.createUser(userEntity,bankId);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
@@ -100,9 +110,9 @@ class UserRepository with BaseRepository {
   }
 
   Future<ApiResult<UserEntity>> updateUser(
-      int userId, UserEntity userEntity) async {
+      int userId, UserEntity userEntity,{int? bankId}) async {
     try {
-      var result = await _userService.updateUserProfile(userId, userEntity);
+      var result = await _userService.updateUserProfile(userId, userEntity,bankId);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

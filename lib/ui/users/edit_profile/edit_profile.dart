@@ -26,11 +26,17 @@ class EditProfileScreen extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final _name = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
   final _email = TextEditingController();
   final _mobileNumber = TextEditingController();
   final _address = TextEditingController();
 
+  @override
+  void initState() {
+    context.read<EditProfileCubit>().fetchUserData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,31 +51,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           return ErrorPageView(msg: state.msg);
         }
 
-        return Column(
-          children: [
-            TextInputFieldView(label: "Name", textEditingController: _name),
-            TextInputFieldView(
-              label: "Mobile Number",
-              textEditingController: _mobileNumber,
-              isEnabled: false,
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height*0.8,
+              child: Column(
+                children: [
+                  TextInputFieldView(label: "First name", textEditingController: _firstName),
+                  TextInputFieldView(label: "Last name", textEditingController: _lastName),
+                  TextInputFieldView(
+                    label: "Mobile Number",
+                    textEditingController: _mobileNumber,
+                    isEnabled: false,
+                  ),
+                  TextInputFieldView(label: "Email", textEditingController: _email),
+                  TextInputFieldView(
+                      label: "Address", textEditingController: _address),
+                  const Spacer(),
+                  LoadingButtonView(
+                      onPressed: () {
+                        context
+                            .read<EditProfileCubit>()
+                            .updateProfile(_firstName.text,_lastName.text, _email.text, _address.text);
+                      },
+                      text: "Update Profile",
+                      isLoading: state.status.isLoading)
+                ],
+              ),
             ),
-            TextInputFieldView(label: "Email", textEditingController: _email),
-            TextInputFieldView(
-                label: "Address", textEditingController: _address),
-            const Spacer(),
-            LoadingButtonView(
-                onPressed: () {
-                  context
-                      .read<EditProfileCubit>()
-                      .updateProfile(_name.text, _email.text, _address.text);
-                },
-                text: "Update Profile",
-                isLoading: state.status.isLoading)
-          ],
+          ),
         );
       }, listener: (context, state) {
         if (state.status.isInitializationSuccessful) {
-          _name.text = state.name ?? "";
+          _firstName.text = state.firstName ?? "";
+          _lastName.text = state.lastName ?? "";
           _mobileNumber.text = state.mobileNumber ?? "";
           _email.text = state.email ?? "";
           _address.text = state.address ?? "";

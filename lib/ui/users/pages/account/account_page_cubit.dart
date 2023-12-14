@@ -13,7 +13,7 @@ class AccountPageCubit extends BaseCubit<AccountPageState> {
     try{
 
       var userId = await _sessionManager.getUserId();
-      var name = await _sessionManager.getName();
+      var name = await _sessionManager.getFirstName();
       var roleId = await _sessionManager.getRoleId();
       var role = UserRole.getUserRoleName(roleId);
       var profileImage = await _sessionManager.getProfile();

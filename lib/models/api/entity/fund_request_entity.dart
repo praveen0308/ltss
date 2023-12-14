@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:ltss/models/enums.dart';
+
 import '../../../utils/date_time_helper.dart';
 
 class FundRequestEntity {
@@ -21,7 +24,7 @@ class FundRequestEntity {
     sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
     receiver = json['receiver'] != null ? Receiver.fromJson(json['receiver']) : null;
   }
-  num? requestId;
+  int? requestId;
   num? senderId;
   num? receiverId;
   num? amount;
@@ -29,7 +32,7 @@ class FundRequestEntity {
   String? addedOn;
   Sender? sender;
   Receiver? receiver;
-FundRequestEntity copyWith({  num? requestId,
+FundRequestEntity copyWith({  int? requestId,
   num? senderId,
   num? receiverId,
   num? amount,
@@ -71,6 +74,7 @@ FundRequestEntity copyWith({  num? requestId,
     }
 
   }
+  bool isRequested()=>status == "REQUESTED";
 }
 
 class Receiver {
@@ -83,9 +87,9 @@ class Receiver {
     roleId = json['role_id'];
   }
   String? name;
-  num? roleId;
+  int? roleId;
 Receiver copyWith({  String? name,
-  num? roleId,
+  int? roleId,
 }) => Receiver(  name: name ?? this.name,
   roleId: roleId ?? this.roleId,
 );
@@ -113,9 +117,9 @@ class Sender {
     roleId = json['role_id'];
   }
   String? name;
-  num? roleId;
+  int? roleId;
 Sender copyWith({  String? name,
-  num? roleId,
+  int? roleId,
 }) => Sender(  name: name ?? this.name,
   roleId: roleId ?? this.roleId,
 );
@@ -130,5 +134,7 @@ Sender copyWith({  String? name,
   String toString() {
     return name.toString();
   }
+
+
 
 }

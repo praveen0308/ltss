@@ -19,9 +19,9 @@ class _CommissionService implements CommissionService {
   String? baseUrl;
 
   @override
-  Future<List<CommissionEntity>> getAllCommissions() async {
+  Future<List<CommissionEntity>> getAllCommissions(int serviceId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'service_id': serviceId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio

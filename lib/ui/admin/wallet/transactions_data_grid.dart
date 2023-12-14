@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ltss/models/api/entity/dmt_transaction.dart';
-import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class TransactionsDataSource extends DataGridSource {
@@ -10,7 +9,7 @@ class TransactionsDataSource extends DataGridSource {
       DataGridCell<int>(columnName: 'id', value: e.transactionId),
       DataGridCell<int>(columnName: 'serviceId', value: e.serviceId),
       DataGridCell<int>(
-          columnName: 'customerId', value: e.customerId),
+          columnName: 'customerId', value: e.bankId),
       DataGridCell<int>(
           columnName: 'bankId', value: e.bankId),
       DataGridCell<String>(columnName: 'amount', value: e.amount.toString()),

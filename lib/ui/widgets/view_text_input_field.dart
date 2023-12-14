@@ -12,6 +12,7 @@ class TextInputFieldView extends StatelessWidget {
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final int? lines;
+  final AutovalidateMode? autovalidateMode;
 
   const TextInputFieldView(
       {super.key,
@@ -24,7 +25,7 @@ class TextInputFieldView extends StatelessWidget {
       this.isEnabled = true,
       this.validator,
       this.suffixIcon,
-      this.lines = 1});
+      this.lines = 1, this.autovalidateMode});
 
   String _getInputLabel() {
     if (isRequired == true) {
@@ -50,6 +51,7 @@ class TextInputFieldView extends StatelessWidget {
           ),
         ),
         TextFormField(
+          autovalidateMode: autovalidateMode,
           controller: textEditingController,
           maxLength: maxLength,
           enabled: isEnabled,

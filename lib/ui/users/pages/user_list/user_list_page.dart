@@ -32,8 +32,13 @@ class _UserListPageState extends State<UserListPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  AutoRouter.of(context)
-                      .push(AddUserRoute(userTypeAdding: widget.userType));
+                  if(widget.userType == UserRole.customer){
+                    AutoRouter.of(context).push(const AddCustomerRoute());
+                  }else{
+                    AutoRouter.of(context)
+                        .push(AddUserRoute(userTypeAdding: widget.userType));
+                  }
+
                 },
                 icon: const Icon(Icons.add))
           ],
@@ -56,10 +61,10 @@ class _UserListPageState extends State<UserListPage> {
                                   .push(UserDetailRoute(userId: user.id!));
                             }
                           },
-                          title: Text(user.name.toString()),
-                          subtitle: Text(user.mobile_no.toString()),
+                          title: Text(user.getName().toString()),
+                          subtitle: Text(user.mobileNo.toString()),
                           leading: CircleAvatar(
-                            child: Text(user.name.toString().substring(0, 1)),
+                            child: Text(user.getName().toString().substring(0, 1)),
                           ),
                         );
                       },

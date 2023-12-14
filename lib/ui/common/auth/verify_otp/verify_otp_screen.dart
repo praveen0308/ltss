@@ -6,11 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/generated/assets.dart';
-import 'package:ltss/repository/repository.dart';
 import 'package:ltss/res/res.dart';
 import 'package:ltss/routes/routes.dart';
 import 'package:ltss/ui/common/auth/verify_otp/verify_otp_cubit.dart';
-import 'package:ltss/utils/utils.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 @RoutePage()
@@ -26,7 +24,7 @@ class VerifyOtpScreen extends StatefulWidget implements AutoRouteWrapper{
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) => VerifyOtpCubit(
-          RepositoryProvider.of<AuthRepository>(context)),
+          RepositoryProvider.of<AuthRepository>(context),RepositoryProvider.of<KYCRepository>(context)),
       child: this,
     );
   }
@@ -61,9 +59,14 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with BasePageState {
 
         if (state is ProfileLoaded) {
           if (state.roleId == UserRole.admin.roleId) {
-            AutoRouter.of(context).navigate(const DashboardRoute());
+            AutoRouter.of(context).popAndPush(const DashboardRoute());
           } else {
-            AutoRouter.of(context).navigate(const UserDashboardRoute());
+            if(state.kycDone){
+              AutoRouter.of(context).popAndPush(const UserDashboardRoute());
+            }else{
+              AutoRouter.of(context).popAndPush(const KYCFormPage());
+            }
+
           }
         }
         if (state is OTPVerificationFailed) {

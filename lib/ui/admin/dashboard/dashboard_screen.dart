@@ -52,6 +52,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 flex: AppConstants.sideMenuColSpan,
                 child: SideMenu(
                   onDashboardItemClick: (int index) {
+                    if(index==8){
+
+                    }
                     _pageController.jumpToPage(index);
                   },
                 ),

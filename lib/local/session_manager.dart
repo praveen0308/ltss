@@ -6,7 +6,8 @@ class SessionManager {
 
   final _userId = "userId";
   final _roleId = "roleId";
-  final _name = "name";
+  final _firstName = "firstName";
+  final _lastName = "lastName";
   final _email = "email";
   final _mobileNo = "mobileNo";
   final _profileImage = "profileImage";
@@ -37,13 +38,23 @@ class SessionManager {
     return int.parse(readData ?? "0");
   }
 
-  Future updateName(String name) async {
-    var writeData = await _storage.write(key: _name, value: name.toString());
+  Future updateFirstName(String firstName) async {
+    var writeData = await _storage.write(key: _firstName, value: firstName.toString());
     return writeData;
   }
 
-  Future<String> getName() async {
-    var readData = await _storage.read(key: _name);
+  Future<String> getFirstName() async {
+    var readData = await _storage.read(key: _firstName);
+
+    return readData ?? "";
+  }
+  Future updateLastName(String name) async {
+    var writeData = await _storage.write(key: _lastName, value: name.toString());
+    return writeData;
+  }
+
+  Future<String> getLastName() async {
+    var readData = await _storage.read(key: _lastName);
 
     return readData ?? "";
   }

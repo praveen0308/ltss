@@ -32,26 +32,26 @@ class MyApp extends StatelessWidget {
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ))),
             outlinedButtonTheme: OutlinedButtonThemeData(
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ))),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ))),
             inputDecorationTheme: InputDecorationTheme(
                 border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(8))),
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
             colorScheme:
                 ColorScheme.fromSeed(seedColor: const Color(0xffFE2C2D)),
             useMaterial3: true,

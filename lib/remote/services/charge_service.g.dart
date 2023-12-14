@@ -19,9 +19,9 @@ class _ChargeService implements ChargeService {
   String? baseUrl;
 
   @override
-  Future<List<ChargeEntity>> getAllCharges() async {
+  Future<List<ChargeEntity>> getAllCharges(int serviceId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'service_id': serviceId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio

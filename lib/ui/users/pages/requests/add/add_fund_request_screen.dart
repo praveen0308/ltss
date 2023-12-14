@@ -57,12 +57,15 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
                     var distributor = distributors[index];
                     return RadioListTile(
                         value: distributor.id,
-                        title: Text(distributor.name ?? "Nil"),
+                        title: Text(distributor.firstName ?? "Nil"),
                         subtitle: Text(
-                            UserRole.getUserRoleName(distributor.role_id) ?? ""),
+                            UserRole.getUserRoleName(distributor.roleId) ?? ""),
                         groupValue: selectedDistributor,
                         onChanged: (v) {
                           selectedDistributor = v ?? 0;
+                          setState(() {
+
+                          });
                         });
                   },
                   itemCount: distributors.length,

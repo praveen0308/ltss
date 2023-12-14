@@ -27,8 +27,9 @@ class OTPResendFailed extends VerifyOtpState {
 class LoadingProfile extends VerifyOtpState {}
 class ProfileLoaded extends VerifyOtpState {
   final int roleId;
+  final bool kycDone;
 
-  ProfileLoaded(this.roleId);
+  ProfileLoaded(this.roleId, this.kycDone);
 }
 class LoadProfileFailed extends VerifyOtpState {
   final String msg;

@@ -30,7 +30,8 @@ class FundRequestRepository with BaseRepository {
     }
   }
 
-  Future<ApiResult<List<FundRequestEntity>>> getSenderRequests({int? userId}) async {
+  Future<ApiResult<List<FundRequestEntity>>> getSenderRequests(
+      {int? userId}) async {
     try {
       int uid = 0;
       if (userId != null) {
@@ -84,10 +85,21 @@ class FundRequestRepository with BaseRepository {
   }
 
   Future<ApiResult<FundRequestEntity>> updateFundRequest(
-      int requestId, int amount, String status) async {
+      int requestId, int receiverId, int amount) async {
     try {
       var result = await _fundRequestService.updateFundRequest(
-          requestId, amount, status);
+          requestId, receiverId, amount);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+
+  Future<ApiResult<FundRequestEntity>> updateFundRequestStatus(
+      int requestId, String status) async {
+    try {
+      var result =
+          await _fundRequestService.updateFundRequestStatus(requestId, status);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

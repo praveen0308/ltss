@@ -21,9 +21,9 @@ class ChargeRepository with BaseRepository {
     _chargeService = ChargeService(_dio);
   }
 
-  Future<ApiResult<List<ChargeEntity>>> getAllCharges() async {
+  Future<ApiResult<List<ChargeEntity>>> getAllCharges({int serviceId=0}) async {
     try {
-      var result = await _chargeService.getAllCharges();
+      var result = await _chargeService.getAllCharges(serviceId);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

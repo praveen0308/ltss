@@ -15,13 +15,13 @@ abstract class BankService {
   Future<List<BankEntity>> getAllBanks();
 
   @POST("banks/")
-  Future<BankEntity> addNewBank(@Query("name") String name);
+  Future<BankEntity> addNewBank(@Body() BankEntity bankEntity);
 
   @GET("banks/{bank_id}")
   Future<BankEntity> getBank(@Path("bank_id") int bankId);
 
   @PUT("banks/{bank_id}")
-  Future<BankEntity> updateBank(@Path("bank_id") int bankId,@Query("name") String name,@Query("is_active") bool isActive);
+  Future<BankEntity> updateBank(@Path("bank_id") int bankId,@Body() BankEntity bankEntity);
 
   @DELETE("banks/{bank_id}")
   Future<void> deleteBank(@Path("bank_id") int bankId);

@@ -48,6 +48,35 @@ class _UserService implements UserService {
   }
 
   @override
+  Future<List<BankVendor>> getDMTVendors() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BankVendor>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/dmt_vendors',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => BankVendor.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<num> getWalletBalance() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -103,9 +132,13 @@ class _UserService implements UserService {
   }
 
   @override
-  Future<UserEntity> createUser(UserEntity userEntity) async {
+  Future<UserEntity> createUser(
+    UserEntity userEntity,
+    int? bankId,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'bank_id': bankId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(userEntity.toJson());
@@ -223,9 +256,11 @@ class _UserService implements UserService {
   Future<UserEntity> updateUserProfile(
     int userId,
     UserEntity userEntity,
+    int? bankId,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'bank_id': bankId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(userEntity.toJson());

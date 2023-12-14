@@ -18,8 +18,8 @@ class WalletView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Wallet Balance : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-          Text("₹$balance",style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),)
+          const Text("Wallet Balance : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+          Text("₹$balance",style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
         ],
       ),
     );

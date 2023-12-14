@@ -21,14 +21,16 @@ class CommissionRepository with BaseRepository {
     _commissionService = CommissionService(_dio);
   }
 
-  Future<ApiResult<List<CommissionEntity>>> getAllCommissions() async {
+  Future<ApiResult<List<CommissionEntity>>> getAllCommissions({int serviceId=0}) async {
     try {
-      var result = await _commissionService.getAllCommissions();
+      var result = await _commissionService.getAllCommissions(serviceId);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
     }
   }
+
+
 
   Future<ApiResult<CommissionEntity>> addNewCommission(
       int serviceId, String name, String value, bool isActive) async {

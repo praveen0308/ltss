@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/models/api/entity/user_stats.dart';
@@ -15,6 +16,9 @@ abstract class UserService {
   @GET("users/all")
   Future<List<UserEntity>> getAllUsers();
 
+  @GET("users/dmt_vendors")
+  Future<List<BankVendor>> getDMTVendors();
+
   @GET("users/wallet_balance")
   Future<num> getWalletBalance();
 
@@ -22,7 +26,7 @@ abstract class UserService {
   Future<List<UserEntity>> getDistributors();
 
   @POST("users/")
-  Future<UserEntity> createUser(@Body() UserEntity userEntity);
+  Future<UserEntity> createUser(@Body() UserEntity userEntity,@Query("bank_id") int? bankId);
 
   @GET("users/")
   Future<List<UserEntity>> getAddedUsers(@Query("role_id") int roleId,
@@ -36,7 +40,7 @@ abstract class UserService {
 
   @PUT("users/{user_id}")
   Future<UserEntity> updateUserProfile(
-      @Path("user_id") int userId, @Body() UserEntity userEntity);
+      @Path("user_id") int userId, @Body() UserEntity userEntity,@Query("bank_id") int? bankId);
 
   @GET("users/mobile_no/{mobile_no}")
   Future<UserEntity> getUserByMobileNo(@Path("mobile_no") String mobileNo);

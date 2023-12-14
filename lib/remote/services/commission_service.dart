@@ -13,8 +13,7 @@ abstract class CommissionService {
   factory CommissionService(Dio dio, {String baseUrl}) = _CommissionService;
 
   @GET("commissions/")
-  Future<List<CommissionEntity>> getAllCommissions();
-
+  Future<List<CommissionEntity>> getAllCommissions(@Query("service_id") int serviceId);
 
   @POST("commissions/")
   Future<CommissionEntity> addNewCommission(@Body() CreateCommissionRequestModel requestModel);

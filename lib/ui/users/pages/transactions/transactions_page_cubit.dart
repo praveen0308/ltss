@@ -1,8 +1,9 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:ltss/base/base.dart';
 
 part 'transactions_page_state.dart';
 
-class TransactionsPageCubit extends Cubit<TransactionsPageState> {
-  TransactionsPageCubit() : super(TransactionsPageInitial());
+class TransactionsPageCubit extends BaseCubit<TransactionsPageState> {
+  final DMTRepository _dmtRepository;
+  TransactionsPageCubit(this._dmtRepository) : super(TransactionsPageInitial());
+
 }

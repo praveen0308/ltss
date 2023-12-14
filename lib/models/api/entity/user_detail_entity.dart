@@ -1,8 +1,9 @@
 class UserDetailEntity {
   UserDetailEntity({
       this.id, 
-      this.name, 
-      this.mobileNo, 
+      this.firstName,
+      this.lastName,
+      this.mobileNo,
       this.email, 
       this.address,
       this.roleId,
@@ -18,7 +19,8 @@ class UserDetailEntity {
 
   UserDetailEntity.fromJson(dynamic json) {
     id = json['id'];
-    name = json['name'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
     mobileNo = json['mobile_no'];
     email = json['email'];
     address = json['address'];
@@ -33,38 +35,41 @@ class UserDetailEntity {
     shopImage = json['shop_image'];
     profileImage = json['profile_image'];
   }
-  num? id;
-  String? name;
+  int? id;
+  String? firstName;
+  String? lastName;
   String? mobileNo;
   String? email;
   String? address;
-  num? roleId;
-  dynamic restrictions;
+  int? roleId;
+  String? restrictions;
   bool? isActive;
   num? walletBalance;
-  num? userCount;
-  num? requestCount;
-  dynamic aadhaar;
-  dynamic pan;
-  dynamic shopImage;
-  dynamic profileImage;
-UserDetailEntity copyWith({  num? id,
-  String? name,
+  int? userCount;
+  int? requestCount;
+  String? aadhaar;
+  String? pan;
+  String? shopImage;
+  String? profileImage;
+UserDetailEntity copyWith({  int? id,
+  String? firstName,
+  String? lastName,
   String? mobileNo,
   String? email,
   String? address,
-  num? roleId,
-  dynamic restrictions,
+  int? roleId,
+  String? restrictions,
   bool? isActive,
   num? walletBalance,
-  num? userCount,
-  num? requestCount,
-  dynamic aadhaar,
-  dynamic pan,
-  dynamic shopImage,
-  dynamic profileImage,
+  int? userCount,
+  int? requestCount,
+  String? aadhaar,
+  String? pan,
+  String? shopImage,
+  String? profileImage,
 }) => UserDetailEntity(  id: id ?? this.id,
-  name: name ?? this.name,
+  firstName: firstName ?? this.firstName,
+  lastName: lastName ?? this.lastName,
   mobileNo: mobileNo ?? this.mobileNo,
   email: email ?? this.email,
   address: address ?? this.address,
@@ -82,7 +87,8 @@ UserDetailEntity copyWith({  num? id,
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['name'] = name;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
     map['mobile_no'] = mobileNo;
     map['email'] = email;
     map['address'] = address;
@@ -99,4 +105,5 @@ UserDetailEntity copyWith({  num? id,
     return map;
   }
 
+  String getName()=>"$firstName $lastName";
 }

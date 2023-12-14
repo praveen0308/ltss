@@ -23,8 +23,8 @@ class UserDetailCubit extends BaseCubit<UserDetailState> {
       emit(
         OnDataLoaded(
             data: result,
-            blockEnabled: userId != result.id && result.isActive == true,
-            unblockEnabled: userId != result.id && result.isActive == false,
+            blockEnabled:  result.isActive == true,
+            unblockEnabled: result.isActive == false,
             editProfileEnabled: userId == result.id),
       );
     }, failure: (e) {

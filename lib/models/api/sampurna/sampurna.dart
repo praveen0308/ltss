@@ -1,0 +1,10 @@
+export 'add_beneficiary_request.dart';
+export 'add_beneficiary_response.dart';
+export 'create_sender_request.dart';
+export 'create_sender_response.dart';
+export 'get_beneficiary_response.dart';
+export 'sender.dart';
+export 'verify_account_request.dart';
+export 'verify_account_response.dart';
+export 'verify_sender_request.dart';
+export 'verify_sender_response.dart';

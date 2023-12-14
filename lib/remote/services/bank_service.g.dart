@@ -48,11 +48,12 @@ class _BankService implements BankService {
   }
 
   @override
-  Future<BankEntity> addNewBank(String name) async {
+  Future<BankEntity> addNewBank(BankEntity bankEntity) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'name': name};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(bankEntity.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BankEntity>(Options(
       method: 'POST',
@@ -104,16 +105,13 @@ class _BankService implements BankService {
   @override
   Future<BankEntity> updateBank(
     int bankId,
-    String name,
-    bool isActive,
+    BankEntity bankEntity,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'name': name,
-      r'is_active': isActive,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(bankEntity.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BankEntity>(Options(
       method: 'PUT',

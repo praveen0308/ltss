@@ -11,6 +11,16 @@ class DateTextFieldViewController {
   void setDate(DateTime? value) {
     this.value = value;
   }
+  String? getFormattedDate({String pattern = "dd-MM-yyyy"}){
+    if(value!=null){
+      final DateFormat formatter = DateFormat(pattern);
+      final String formatted = formatter.format(value!);
+      return formatted;
+    }else{
+      return null;
+    }
+
+  }
 }
 
 class DateTextFieldView extends StatefulWidget {

@@ -31,18 +31,20 @@ extension EditProfileStatusX on EditProfileStatus {
 class EditProfileState {
   final EditProfileStatus status;
   final String? msg;
-  final String? name;
+  final String? firstName;
+  final String? lastName;
   final String? email;
   final String? mobileNumber;
   final String? address;
 
   EditProfileState({this.status = EditProfileStatus
-      .initial, this.msg, this.name, this.email, this.mobileNumber, this.address,});
+      .initial, this.msg, this.firstName,this.lastName, this.email, this.mobileNumber, this.address,});
 
   EditProfileState copyWith({
     EditProfileStatus? status,
     String? msg,
-    String? name,
+    String? firstName,
+    String? lastName,
     String? email,
     String? mobileNumber,
     String? address,
@@ -50,7 +52,8 @@ class EditProfileState {
     return EditProfileState(
       status: status ?? this.status,
       msg: msg ?? this.msg,
-      name: name ?? this.name,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
       email: email ?? this.email,
       mobileNumber: mobileNumber ?? this.mobileNumber,
       address: address ?? this.address,

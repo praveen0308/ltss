@@ -21,11 +21,27 @@ class KYCRepository with BaseRepository {
     _kycService = KYCService(_dio);
   }
 
-  Future<ApiResult<PostKycResponse>> postKYC(int userId, String pan,
-      String aadhaar, File shopImage, File profileImage) async {
+  Future<ApiResult<PostKycResponse>> postKYC(
+      String pan, String aadhaar, File shopImage, File profileImage,
+      {int userId = 0}) async {
     try {
+      var token = TokenManager.getToken(_preferences);
+      if (userId == 0) {
+        userId = await _sessionManager.getUserId();
+      }
+
       var result = await _kycService.addKYCDetail(
-          userId, pan, aadhaar, shopImage, profileImage);
+          "Bearer $token", userId, pan, aadhaar, shopImage, profileImage);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+
+  Future<ApiResult<bool>> getKYCStatus() async {
+    try {
+      var token = TokenManager.getToken(_preferences);
+      var result = await _kycService.kycStatus("Bearer $token");
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

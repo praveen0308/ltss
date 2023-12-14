@@ -25,7 +25,7 @@ class _AddCommissionPageState extends State<AddCommissionPage> {
       DropdownFieldViewController<ServiceEntity>();
   final _name = TextEditingController();
   final _value = TextEditingController();
-  late CommissionEntity _commission;
+  CommissionEntity? _commission;
   var isActive = true;
   var operation = Operations.add;
 
@@ -35,9 +35,9 @@ class _AddCommissionPageState extends State<AddCommissionPage> {
       _commission = widget.commissionEntity!;
       operation = Operations.update;
 
-      _name.text = _commission.name ?? "";
-      _value.text = _commission.value ?? "";
-      isActive = _commission.isActive!;
+      _name.text = _commission?.name ?? "";
+      _value.text = _commission?.value ?? "";
+      isActive = _commission?.isActive==true;
     }
     context.read<AddCommissionCubit>().loadServices();
     super.initState();
@@ -76,9 +76,12 @@ class _AddCommissionPageState extends State<AddCommissionPage> {
         }
         if (state.status.isInitializationSuccessful) {
           _services.setDropdownItems(state.services);
-          var service = state.services
-              ?.firstWhere((element) => element.id == _commission.serviceId);
-          _services.setDropdownValue(service);
+          if(_commission != null){
+            var service = state.services
+                ?.firstWhere((element) => element.id == _commission?.serviceId);
+            _services.setDropdownValue(service);
+          }
+
         }
         return Column(
           children: [
@@ -125,7 +128,7 @@ class _AddCommissionPageState extends State<AddCommissionPage> {
                         isActive);
                   } else {
                     context.read<AddCommissionCubit>().updateCommission(
-                        _commission.commissionId!,
+                        _commission!.commissionId!,
                         _services.value!.id!,
                         _name.text,
                         _value.text,

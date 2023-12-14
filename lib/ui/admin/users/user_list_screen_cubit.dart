@@ -1,7 +1,5 @@
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:ltss/repository/user_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'user_list_screen_state.dart';
 
@@ -39,7 +37,7 @@ class UserListScreenCubit extends BaseCubit<UserListScreenState> {
     List<UserEntity> filteredItems = List.empty(growable: true);
 
     for (var element in users) {
-      if(element.name?.contains(query) == true){
+      if(element.firstName?.contains(query) == true || element.lastName?.contains(query) == true){
         filteredItems.add(element);
       }
     }

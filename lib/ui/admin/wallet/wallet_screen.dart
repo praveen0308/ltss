@@ -32,6 +32,7 @@ class _WalletScreenState extends State<WalletScreen> with BasePageState {
         }
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           BlocBuilder<WalletScreenCubit, WalletScreenState>(
             builder: (context, state) {

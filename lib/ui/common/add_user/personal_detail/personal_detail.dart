@@ -15,10 +15,12 @@ class PersonalDetailPage extends StatefulWidget {
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
   final DropdownFieldViewController _ddlController =
       DropdownFieldViewController();
-  final TextEditingController _name = TextEditingController();
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
   final TextEditingController _mobileNumber = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _address = TextEditingController();
+  final TextEditingController _pincode = TextEditingController();
   final List<UserRole> userTypes = List.empty(growable: true);
 
   @override
@@ -40,20 +42,25 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          DropdownFieldView<UserRole>(
-            controller: _ddlController,
-            onChanged: (d) {},
-            label: "Role",
-            isEnabled: false,
+          Visibility(
+            visible: false,
+            child: DropdownFieldView<UserRole>(
+              controller: _ddlController,
+              onChanged: (d) {},
+              label: "Role",
+              isEnabled: false,
+            ),
           ),
           TextInputFieldView(
-            label: 'Name',
-            textEditingController: _name,
+            label: 'First Name',
+            textEditingController: _firstName,
+          ), TextInputFieldView(
+            label: 'Last Name',
+            textEditingController: _lastName,
           ),
           TextInputFieldView(
             label: 'Mobile Number',
@@ -67,12 +74,16 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           TextInputFieldView(
             label: 'Address',
             textEditingController: _address,
+          ),TextInputFieldView(
+            label: 'Pincode',
+            textEditingController: _pincode,
+            inputType: TextInputType.number,
+            maxLength: 6,
           ),
-          const Spacer(),
           FilledButton(
               onPressed: () {
                 context.read<AddUserCubit>().saveUserData(_ddlController.value,
-                    _name.text, _mobileNumber.text, _email.text, _address.text);
+                    _firstName.text,_lastName.text, _mobileNumber.text, _email.text, _address.text,_pincode.text);
               },
               child: const Text("Next"))
         ],

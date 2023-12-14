@@ -7,8 +7,10 @@ part 'verify_otp_state.dart';
 
 class VerifyOtpCubit extends BaseCubit<VerifyOtpState> {
   final AuthRepository _authRepository;
+  final KYCRepository _kycRepository;
 
-  VerifyOtpCubit(this._authRepository) : super(VerifyOtpInitial());
+  VerifyOtpCubit(this._authRepository, this._kycRepository)
+      : super(VerifyOtpInitial());
 
   Future<void> verifyOtp(String mobileNumber, String otp) async {
     emit(VerifyingOTP());
@@ -36,9 +38,15 @@ class VerifyOtpCubit extends BaseCubit<VerifyOtpState> {
   Future<void> fetchProfileData() async {
     emit(LoadingProfile());
     var result = await _authRepository.getProfile();
+    var kycStatus = await _kycRepository.getKYCStatus();
 
     result.when(success: (result) {
-      emit(ProfileLoaded(result.role_id ?? 0));
+      kycStatus.when(success: (status) {
+        emit(ProfileLoaded(result.roleId ?? 0, status));
+      }, failure: (e) {
+        emit(LoadProfileFailed(e.message));
+        logger.e("Exception: $e");
+      });
     }, failure: (e) {
       emit(LoadProfileFailed(e.message));
       logger.e("Exception: $e");

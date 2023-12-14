@@ -25,102 +25,107 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AccountPageCubit, AccountPageState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    switch(state){
-      case AccountPageInitial():
-        return Container();
-      case LoadingUI():
-        return const LoadingView();
-      case UILoaded():
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: NetworkImage(
-                          state.profileUrl,),
-                      backgroundColor: Colors.transparent,
-                    ),
-                    const SizedBox(
-                      width: 24,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          state.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          switch (state) {
+            case AccountPageInitial():
+              return Container();
+            case LoadingUI():
+              return const LoadingView();
+            case UILoaded():
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 50.0,
+                            backgroundImage: NetworkImage(
+                              state.profileUrl,
+                            ),
+                            backgroundColor: Colors.transparent,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: Text(
-                            state.mobileNumber,
-                            style:const TextStyle(
-                                color: Colors.black,    fontSize: 16, fontWeight: FontWeight.w500),
+                          const SizedBox(
+                            width: 24,
                           ),
-                        ),
-                        HighlightedLabel(text: state.role),
-
-                      ],
-                    )
-                  ],
-                ),
-                FilledButton(
-                    onPressed: () {
-                      AutoRouter.of(context).push(const EditProfileRoute());
-                    }, child: const Text("Edit Profile")),
-                const SizedBox(
-                  height: 16
-                ),
-
-                menuItem(Icons.info_outline_rounded, "My Information", () {
-                  AutoRouter.of(context)
-                      .push(UserDetailRoute(userId: state.userId));
-                }),
-                menuItem(Icons.privacy_tip_rounded, "Privacy Policy", () {}),
-                menuItem(Icons.help_outline_rounded, "FAQs", () {}),
-                const Divider(),
-                menuItem(Icons.star_half_rounded, "Rate Us", () {}),
-                menuItem(Icons.share_rounded, "Share Us", () {}),
-                menuItem(Icons.logout_rounded, "Log Out", () {
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Log Out'),
-                        content: const Text('Are you sure you want logout?'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Yes'),
-                            child: const Text('OK'),
-                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                state.name,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  state.mobileNumber,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              HighlightedLabel(text: state.role),
+                            ],
+                          )
                         ],
-                      ));
-                }, iconColor: Colors.red),
-              ],
-            ),
-          ),
-        );
-      case LoadUIFailed():
-        return const ErrorPageView();
-    }
-
-  },
-),
+                      ),
+                      FilledButton(
+                          onPressed: () {
+                            AutoRouter.of(context)
+                                .push(const EditProfileRoute());
+                          },
+                          child: const Text("Edit Profile")),
+                      const SizedBox(height: 16),
+                      menuItem(Icons.info_outline_rounded, "My Information",
+                          () {
+                        AutoRouter.of(context).push(const MyProfileRoute());
+                      }),
+                      menuItem(
+                          Icons.privacy_tip_rounded, "Privacy Policy", () {}),
+                      menuItem(Icons.help_outline_rounded, "FAQs", () {}),
+                      const Divider(),
+                      menuItem(Icons.star_half_rounded, "Rate Us", () {}),
+                      menuItem(Icons.share_rounded, "Share Us", () {}),
+                      menuItem(Icons.logout_rounded, "Log Out", () {
+                        showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Log Out'),
+                                  content: const Text(
+                                      'Are you sure you want logout?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Yes'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ));
+                      }, iconColor: Colors.red),
+                    ],
+                  ),
+                ),
+              );
+            case LoadUIFailed():
+              return const ErrorPageView();
+          }
+        },
+      ),
     );
   }
 

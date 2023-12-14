@@ -16,5 +16,17 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AddFundRequestRoute.page),
         AutoRoute(page: UserDetailRoute.page),
         AutoRoute(page: EditProfileRoute.page),
+        AutoRoute(page: MyProfileRoute.page),
+        AutoRoute(page: FundRequestDetailRoute.page),
+        AutoRoute(page: DMTRoute.page),
+        AutoRoute(page: SelectCustomerRoute.page),
+        AutoRoute(page: SelectBeneficiaryRoute.page),
+        AutoRoute(page: AddCustomerRoute.page),
+        AutoRoute(page: AddBeneficiaryRoute.page),
+        AutoRoute(page: SearchCustomerRoute.page),
+        AutoRoute(page: DMTCheckoutRoute.page),
+        AutoRoute(page: TransactionSuccessRoute.page),
+        AutoRoute(page: KYCFormPage.page),
+        AutoRoute(page: TNCFormRoute.page),
       ];
 }
