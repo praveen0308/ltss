@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
+import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/request/fund_request_request_model.dart';
 import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
@@ -15,15 +16,18 @@ abstract class BankService {
   Future<List<BankEntity>> getAllBanks();
 
   @POST("banks/")
-  Future<BankEntity> addNewBank(@Body() BankEntity bankEntity);
+  Future<BankEntity> addNewBank(@Body() BankEntity bankEntity,@Query("vendor_id") int? vendorId);
 
   @GET("banks/{bank_id}")
   Future<BankEntity> getBank(@Path("bank_id") int bankId);
 
   @PUT("banks/{bank_id}")
-  Future<BankEntity> updateBank(@Path("bank_id") int bankId,@Body() BankEntity bankEntity);
+  Future<BankEntity> updateBank(@Path("bank_id") int bankId,@Body() BankEntity bankEntity,@Query("vendor_id") int? vendorId);
 
   @DELETE("banks/{bank_id}")
   Future<void> deleteBank(@Path("bank_id") int bankId);
+
+  @PUT("banks/update_bank_vendor/{bank_id}")
+  Future<BankVendor> updateBankVendor(@Path("bank_id") int bankId,@Query("vendor_id") int? vendorId);
 
 }

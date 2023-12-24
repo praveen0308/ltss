@@ -75,7 +75,7 @@ class DmtTransactionsDataSource extends DataGridSource {
                 children: [
                   IconButton(
                     onPressed: () => onViewClick(row.getCells()[0].value),
-                    icon: Icon(Icons.remove_red_eye_rounded),
+                    icon: const Icon(Icons.remove_red_eye_rounded),
                     iconSize: 16,
                     splashRadius: 0.0001,
                     padding: EdgeInsets.zero,
@@ -84,7 +84,7 @@ class DmtTransactionsDataSource extends DataGridSource {
                   ),
                   IconButton(
                     onPressed: () => onEditClick(row.getCells()[0].value),
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     iconSize: 16,
                     splashRadius: 0.0001,
                     padding: EdgeInsets.zero,
@@ -93,7 +93,7 @@ class DmtTransactionsDataSource extends DataGridSource {
                   ),
                   IconButton(
                     onPressed: () => onDeleteClick(row.getCells()[0].value),
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     iconSize: 16,
                     splashRadius: 0.0001,
                     padding: EdgeInsets.zero,
@@ -106,7 +106,7 @@ class DmtTransactionsDataSource extends DataGridSource {
                 ],
               )
             : dataGridCell.columnName == 'status'
-                ? StatusView(status: dataGridCell.value == true)
+                ? StatusView(status: dataGridCell.value != "REQUESTED",text: dataGridCell.value,)
                 : dataGridCell.columnName == 'amount' ||
                         dataGridCell.columnName == 'commission' ||
                         dataGridCell.columnName == 'charge'

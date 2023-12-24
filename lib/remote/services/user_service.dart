@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
@@ -26,7 +27,8 @@ abstract class UserService {
   Future<List<UserEntity>> getDistributors();
 
   @POST("users/")
-  Future<UserEntity> createUser(@Body() UserEntity userEntity,@Query("bank_id") int? bankId);
+  Future<UserEntity> createUser(
+      @Body() UserEntity userEntity, @Query("bank_id") int? bankId);
 
   @GET("users/")
   Future<List<UserEntity>> getAddedUsers(@Query("role_id") int roleId,
@@ -39,8 +41,8 @@ abstract class UserService {
   Future<UserEntity> getUser(@Path("user_id") int userId);
 
   @PUT("users/{user_id}")
-  Future<UserEntity> updateUserProfile(
-      @Path("user_id") int userId, @Body() UserEntity userEntity,@Query("bank_id") int? bankId);
+  Future<UserEntity> updateUserProfile(@Path("user_id") int userId,
+      @Body() UserEntity userEntity, @Query("bank_id") int? bankId);
 
   @GET("users/mobile_no/{mobile_no}")
   Future<UserEntity> getUserByMobileNo(@Path("mobile_no") String mobileNo);
@@ -51,4 +53,10 @@ abstract class UserService {
   @PUT("users/block/{user_id}")
   Future<void> blockUser(
       @Path("user_id") int userId, @Query("user_status") bool status);
+
+  @GET("users/vendor")
+  Future<UserEntity?> getVendor(@Query("bank_id") int bankId);
+
+  @GET("users/bank")
+  Future<BankEntity?> getBank(@Query("vendor_id") int vendorId);
 }

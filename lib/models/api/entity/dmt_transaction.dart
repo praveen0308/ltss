@@ -52,7 +52,7 @@ class DmtTransaction {
     modifiedOn = json['modified_on'];
     addedBy = json['added_by'];
     modifiedBy = json['modified_by'];
-    retailer = UserEntity.fromJson(json['retailer']);
+    retailer = json['retailer'] !=null ? UserEntity.fromJson(json['retailer']):null;
     vendor = json['vendor'] !=null ? UserEntity.fromJson(json['vendor']):null;
 
   }
@@ -160,19 +160,36 @@ DmtTransaction copyWith({
   String getCustomer(){
     return "$senderName\n$senderMobileNo";
   }
+  String getCustomerWithLabel(){
+    return "Name: $senderName\nMobile No.: $senderMobileNo";
+  }
   String getRetailer(){
+    return "Name: ${retailer?.firstName} ${retailer?.lastName}\nMobile No.: ${retailer?.mobileNo}";
+  }
+
+  String getRetailerWithLabel(){
     return "${retailer?.firstName} ${retailer?.lastName}\n${retailer?.mobileNo}";
   }
-  String? getVendor(){
+  String getVendor(){
     if(vendor!=null){
       return "${vendor?.firstName} ${vendor?.lastName}\n${vendor?.mobileNo}";
     }else{
-      return null;
+      return "N.A.";
     }
-
+  }
+  String getVendorWithLabel(){
+    if(vendor!=null){
+      return "Name: ${vendor?.firstName} ${vendor?.lastName}\nMobile No.: ${vendor?.mobileNo}";
+    }else{
+      return "N.A.";
+    }
   }
   String getBeneficiary(){
     return "$beneficiaryName\n$bankName\n$accountNumber\n$ifsc";
+  }
+
+  String getBeneficiaryWithLabel(){
+    return "Name: $beneficiaryName\nBank: $bankName\nAccount No.: $accountNumber\nIFSC: $ifsc";
   }
   String getTransMode(){
     if(transMode==1){
@@ -196,5 +213,9 @@ DmtTransaction copyWith({
     }else{
       return "NIL";
     }
+  }
+
+  String getFormattedAmount(){
+    return "₹$amount";
   }
 }

@@ -48,9 +48,13 @@ class _BankService implements BankService {
   }
 
   @override
-  Future<BankEntity> addNewBank(BankEntity bankEntity) async {
+  Future<BankEntity> addNewBank(
+    BankEntity bankEntity,
+    int? vendorId,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'vendor_id': vendorId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(bankEntity.toJson());
@@ -106,9 +110,11 @@ class _BankService implements BankService {
   Future<BankEntity> updateBank(
     int bankId,
     BankEntity bankEntity,
+    int? vendorId,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'vendor_id': vendorId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(bankEntity.toJson());
@@ -155,6 +161,37 @@ class _BankService implements BankService {
           _dio.options.baseUrl,
           baseUrl,
         ))));
+  }
+
+  @override
+  Future<BankVendor> updateBankVendor(
+    int bankId,
+    int? vendorId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'vendor_id': vendorId};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<BankVendor>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'banks/update_bank_vendor/${bankId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BankVendor.fromJson(_result.data!);
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

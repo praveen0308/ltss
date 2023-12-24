@@ -28,5 +28,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: TransactionSuccessRoute.page),
         AutoRoute(page: KYCFormPage.page),
         AutoRoute(page: TNCFormRoute.page),
+        AutoRoute(page: TransactionDetailRoute.page),
+        AutoRoute(page: TransactionActionRoute.page),
       ];
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 enum AppStatus {
-  requested("REQUESTED", 1, Colors.deepOrange, Color(0xffffc2b3)),
-  initiated("INITIATED", 1, Colors.deepOrange, Color(0xffffc2b3)),
-  approved("APPROVED", 2, Color(0xff009933), Color(0xffb3ffcc)),
-  rejected("REJECTED", 3, Color(0xffff0000), Color(0xffffb3b3)),
-  revoked("REVOKED", 4, Color(0xff4d4d4d), Color(0xffd9d9d9));
+  requested("REQUESTED", 1, Colors.white,Colors.deepOrange),
+  initiated("INITIATED", 1, Colors.white,Colors.deepOrange),
+  approved("APPROVED", 2, Colors.white, Color(0xff009933)),
+  rejected("REJECTED", 3, Colors.white, Color(0xffff0000)),
+  revoked("REVOKED", 4, Colors.white, Color(0xffff0000)),
+  done("DONE", 5, Colors.white, Color(0xff181A17)),
+  doneNVerified("DONE & VERIFIED", 6, Colors.white, Color(0xff181A17));
 
   final String name;
   final int id;
@@ -14,7 +16,7 @@ enum AppStatus {
 
   const AppStatus(this.name, this.id, this.textColor, this.bgColor);
 
-  factory AppStatus.getStatus(String? status) {
+  factory AppStatus.fromString(String? status) {
     for (AppStatus e in AppStatus.values) {
       if (e.name == status) {
         return e;

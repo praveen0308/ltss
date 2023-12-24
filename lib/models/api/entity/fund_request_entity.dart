@@ -79,62 +79,89 @@ FundRequestEntity copyWith({  int? requestId,
 
 class Receiver {
   Receiver({
-      this.name, 
+      this.firstName,
+      this.lastName,
+      this.mobileNo,
       this.roleId,});
 
   Receiver.fromJson(dynamic json) {
-    name = json['name'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    mobileNo = json['mobile_no'];
     roleId = json['role_id'];
   }
-  String? name;
+  String? firstName;
+  String? lastName;
+  String? mobileNo;
   int? roleId;
-Receiver copyWith({  String? name,
+Receiver copyWith({
+  String? firstName,
+  String? lastName,
+  String? mobileNo,
   int? roleId,
-}) => Receiver(  name: name ?? this.name,
+}) => Receiver(
+  firstName: firstName ?? this.firstName,
+  lastName: lastName ?? this.lastName,
+  mobileNo: mobileNo ?? this.mobileNo,
   roleId: roleId ?? this.roleId,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['name'] = name;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['mobile_no'] = mobileNo;
     map['role_id'] = roleId;
     return map;
   }
 
   @override
   String toString() {
-    return name.toString();
+    return "$firstName $lastName".toString();
   }
 
 }
 
 class Sender {
   Sender({
-      this.name, 
-      this.roleId,});
+    this.firstName,
+    this.lastName,
+    this.mobileNo,
+    this.roleId,});
 
   Sender.fromJson(dynamic json) {
-    name = json['name'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    mobileNo = json['mobile_no'];
     roleId = json['role_id'];
   }
-  String? name;
+  String? firstName;
+  String? lastName;
+  String? mobileNo;
   int? roleId;
-Sender copyWith({  String? name,
-  int? roleId,
-}) => Sender(  name: name ?? this.name,
-  roleId: roleId ?? this.roleId,
-);
+  Sender copyWith({
+    String? firstName,
+    String? lastName,
+    String? mobileNo,
+    int? roleId,
+  }) => Sender(
+    firstName: firstName ?? this.firstName,
+    lastName: lastName ?? this.lastName,
+    mobileNo: mobileNo ?? this.mobileNo,
+    roleId: roleId ?? this.roleId,
+  );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['name'] = name;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['mobile_no'] = mobileNo;
     map['role_id'] = roleId;
     return map;
   }
 
   @override
   String toString() {
-    return name.toString();
+    return "$firstName $lastName".toString();
   }
-
 
 
 }

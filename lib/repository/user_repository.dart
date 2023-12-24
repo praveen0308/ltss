@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ltss/base/base_repository.dart';
 import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/local/token_manager.dart';
+import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
@@ -138,8 +139,21 @@ class UserRepository with BaseRepository {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
     }
   }
-/*
-  Future<void> deleteUser(int userId) async {
-    return _userService.de(userId);
-  }*/
+  Future<ApiResult<BankEntity?>> getBank(int vendorId) async {
+    try {
+      var result = await _userService.getBank(vendorId);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+  Future<ApiResult<UserEntity?>> getVendor(int bankId) async {
+    try {
+      var result = await _userService.getVendor(bankId);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+
 }

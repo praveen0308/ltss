@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
 
-class UserEntity {
+class UserEntity extends Equatable{
   UserEntity({
       this.id, 
       this.mobileNo, 
@@ -86,4 +87,11 @@ UserEntity copyWith({  int? id,
 
   String getName()=>"$firstName $lastName";
 
+  @override
+  List<Object?> get props => [id];
+
+  @override
+  String toString() {
+    return getName();
+  }
 }

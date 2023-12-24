@@ -74,7 +74,8 @@ class DashboardScreenBloc
         emit(DashboardScreenState(
             view: BlocProvider(
                 create: (context) => AddBankCubit(
-                    RepositoryProvider.of<BankRepository>(context)),
+                    RepositoryProvider.of<BankRepository>(context),
+                    RepositoryProvider.of<UserRepository>(context)),
                 child: AddBankPage(
                   bankEntity: event.data,
                 ))));
@@ -103,39 +104,30 @@ class DashboardScreenBloc
       if (event is ToggleAddUserPage) {
         emit(DashboardScreenState(
             view: BlocProvider(
-              create: (context) => AddUserCubit(
-                  RepositoryProvider.of<UserRepository>(
-                      context),
-                  RepositoryProvider.of<KYCRepository>(
-                      context)),
-              child: AddUserScreen(
-                  userTypeAdding: event.role,
-              userEntity: event.user,),
-            )
-        )
-        );
+          create: (context) => AddUserCubit(
+              RepositoryProvider.of<UserRepository>(context),
+              RepositoryProvider.of<KYCRepository>(context)),
+          child: AddUserScreen(
+            userTypeAdding: event.role,
+            userEntity: event.user,
+          ),
+        )));
       }
       if (event is ToggleManageCommission) {
         emit(DashboardScreenState(
             view: BlocProvider(
-              create: (context) => ManageCommissionCubit(
-                  RepositoryProvider.of<CommissionRepository>(
-                      context)),
-              child: ManageCommissionScreen(serviceId: event.serviceId),
-            )
-        )
-        );
+          create: (context) => ManageCommissionCubit(
+              RepositoryProvider.of<CommissionRepository>(context)),
+          child: ManageCommissionScreen(serviceId: event.serviceId),
+        )));
       }
       if (event is ToggleManageCharges) {
         emit(DashboardScreenState(
             view: BlocProvider(
-              create: (context) => ManageChargeCubit(
-                  RepositoryProvider.of<ChargeRepository>(
-                      context)),
-              child: ManageChargeScreen(serviceId: event.serviceId),
-            )
-        )
-        );
+          create: (context) => ManageChargeCubit(
+              RepositoryProvider.of<ChargeRepository>(context)),
+          child: ManageChargeScreen(serviceId: event.serviceId),
+        )));
       }
       if (event is Empty) {
         emit(const DashboardScreenState(view: null));

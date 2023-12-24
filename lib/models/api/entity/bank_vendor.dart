@@ -11,7 +11,7 @@ class BankVendor {
   BankVendor.fromJson(dynamic json) {
     bankId = json['bank_id'];
     vendorId = json['vendor_id'];
-    bank = BankEntity.fromJson(json['bank']);
+    bank = json['bank'] !=null ? BankEntity.fromJson(json['bank']):null;
     vendor =UserEntity.fromJson(json['vendor']);
   }
   int? bankId;

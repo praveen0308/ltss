@@ -19,9 +19,16 @@ class _DMTService implements DMTService {
   String? baseUrl;
 
   @override
-  Future<List<DmtTransaction>> getTransactions() async {
+  Future<List<DmtTransaction>> getTransactions(
+    int? retailerId,
+    int? vendorId,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'retailer_id': retailerId,
+      r'vendor_id': vendorId,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -173,20 +180,37 @@ class _DMTService implements DMTService {
   Future<DmtTransaction> updateTransactionStatus(
     int transactionId,
     String status,
+    File? screenshot,
+    String? comment,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'transaction_id': transactionId,
+      r'status': status,
+      r'comment': comment,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = status;
+    final _data = FormData();
+    if(screenshot!=null){
+    _data.files.add(MapEntry(
+      'screenshot',
+      MultipartFile.fromFileSync(
+        screenshot.path,
+        filename: screenshot.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    }
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DmtTransaction>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,
-              'dmt/${transactionId}',
+              'dmt/{transaction_id}',
               queryParameters: queryParameters,
               data: _data,
             )

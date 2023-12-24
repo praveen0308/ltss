@@ -15,7 +15,7 @@ class FundRequestsDataSource extends DataGridSource {
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'request_id', value: e.requestId),
               DataGridCell<String>(columnName: 'role', value: UserRole.getUserRoleName(e.sender?.roleId)),
-              DataGridCell<String>(columnName: 'sender', value: e.sender!.name),
+              DataGridCell<String>(columnName: 'sender', value: e.sender!.toString()),
               DataGridCell<num>(columnName: 'amount', value: e.amount),
               DataGridCell<String>(columnName: 'status', value: e.status),
               const DataGridCell<Widget>(columnName: 'reject', value: null),

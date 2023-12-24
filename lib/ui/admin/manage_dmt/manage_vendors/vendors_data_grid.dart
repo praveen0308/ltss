@@ -13,7 +13,7 @@ class VendorsDataSource extends DataGridSource {
               DataGridCell<int>(columnName: 'id', value: e.vendorId),
               DataGridCell<String>(
                   columnName: 'name', value: e.vendor?.getName()),
-              DataGridCell<String>(columnName: 'bank', value: e.bank?.name),
+              DataGridCell<String>(columnName: 'bank', value: e.bank?.name ?? "N.A."),
               DataGridCell<String>(
                   columnName: 'mobile_no', value: e.vendor?.mobileNo),
               DataGridCell<String>(columnName: 'email', value: e.vendor?.email),

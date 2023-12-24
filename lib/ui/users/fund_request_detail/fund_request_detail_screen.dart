@@ -108,7 +108,7 @@ class _FundRequestDetailScreenState extends State<FundRequestDetailScreen>
                   children: [
                     ListTile(
                       title: const Text("Sender Name"),
-                      subtitle: Text(request.sender?.name ?? "Nil"),
+                      subtitle: Text(request.sender?.toString() ?? "Nil"),
                     ),
                     ListTile(
                       title: const Text("Role"),

@@ -26,6 +26,7 @@ class DmtCheckoutCubit extends BaseCubit<DmtCheckoutState> {
   double total = 0;
   double minAmount = 0;
   double maxAmount = 0;
+  int bankId= 0;
   late Sender sender;
   late Beneficiary beneficiary;
 
@@ -64,8 +65,9 @@ class DmtCheckoutCubit extends BaseCubit<DmtCheckoutState> {
   void calculateMinMaxAmount() {
     var bank = banks
         .where(
-            (element) => element.name?.contains(beneficiary.bankName!) == true)
+            (element) => element.name?.toUpperCase().contains(beneficiary.bankName!) == true)
         .first;
+    bankId = bank.bankId ?? 0;
     minAmount = bank.min!;
     maxAmount = bank.max!;
   }
@@ -121,7 +123,7 @@ class DmtCheckoutCubit extends BaseCubit<DmtCheckoutState> {
       beneficiaryName: beneficiary.beneName,
       accountNumber: beneficiary.accountNo,
       ifsc: beneficiary.ifsc,
-      bankId: beneficiary.bankID,
+      bankId: bankId,
       bankName: beneficiary.bankName,
       transMode: beneficiary.transMode,
       amount: amount,

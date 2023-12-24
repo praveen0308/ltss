@@ -366,6 +366,62 @@ class _UserService implements UserService {
         ))));
   }
 
+  @override
+  Future<UserEntity?> getVendor(int bankId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'bank_id': bankId};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<UserEntity>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/vendor',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : UserEntity.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BankEntity?> getBank(int vendorId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'vendor_id': vendorId};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<BankEntity>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'users/bank',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : BankEntity.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

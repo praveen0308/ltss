@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ltss/base/base_repository.dart';
@@ -24,21 +25,20 @@ class DMTRepository with BaseRepository {
     _dmtService = DMTService(_dio);
   }
 
-  Future<ApiResult<List<DmtTransaction>>> getTransactions() async {
+  Future<ApiResult<List<DmtTransaction>>> getTransactions(
+      {int? retailerId, int? vendorId}) async {
     try {
-      var result = await _dmtService.getTransactions();
+      var result = await _dmtService.getTransactions(retailerId, vendorId);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
     }
   }
 
-
-  Future<ApiResult<List<BeneficiaryEntity>>> getBeneficiaries(
-      String mobileNo, {String referenceId = ""}) async {
-
+  Future<ApiResult<List<BeneficiaryEntity>>> getBeneficiaries(String mobileNo,
+      {String referenceId = ""}) async {
     try {
-      var result = await _dmtService.getBeneficiaries(mobileNo,"");
+      var result = await _dmtService.getBeneficiaries(mobileNo, "");
 
       return ApiResult.success(result);
     } on Exception catch (e) {
@@ -77,10 +77,11 @@ class DMTRepository with BaseRepository {
   }
 
   Future<ApiResult<DmtTransaction>> updateTransactionStatus(
-      int transactionId, String status) async {
+      int transactionId, String status,
+      {File? screenshot, String? comment}) async {
     try {
-      var result =
-          await _dmtService.updateTransactionStatus(transactionId, status);
+      var result = await _dmtService.updateTransactionStatus(
+          transactionId, status, screenshot, comment);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));
@@ -145,8 +146,8 @@ class DMTRepository with BaseRepository {
     }
   }
 
-  Future<ApiResult<GetBeneficiaryResponse>> getBeneficiary(
-      String mobileNo, {String referenceId=""}) async {
+  Future<ApiResult<GetBeneficiaryResponse>> getBeneficiary(String mobileNo,
+      {String referenceId = ""}) async {
     try {
       var result = await _dmtService.getBeneficiary(mobileNo, referenceId);
       return ApiResult.success(result);
