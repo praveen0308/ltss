@@ -1,7 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/charge_entity.dart';
-import 'package:meta/meta.dart';
 
 part 'charges_page_state.dart';
 

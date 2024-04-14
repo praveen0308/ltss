@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/routes/route_imports.gr.dart';
-import 'package:ltss/ui/common/add_user/add_user_cubit.dart';
 import 'package:ltss/ui/users/vendor_kyc_form/kyc_form_cubit.dart';
 import 'package:ltss/ui/widgets/view_image_picker.dart';
 import 'package:ltss/ui/widgets/widgets.dart';
@@ -71,14 +70,18 @@ class _KYCFormPageState extends State<KYCFormPage> {
                       isRequired: true,
                     ),
                     ImagePickerView(
-                      validator: (File? file) {},
+                      validator: (File? file) {
+                        return null;
+                      },
                       onChanged: (File file) {
                         shopImage = file;
                       },
                       label: "Shop Image",
                     ),
                     ImagePickerView(
-                      validator: (File? file) {},
+                      validator: (File? file) {
+                        return null;
+                      },
                       onChanged: (File file) {
                         profileImage = file;
                       },

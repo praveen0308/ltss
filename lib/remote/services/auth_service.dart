@@ -3,7 +3,6 @@ import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/models/api/request/update_profile_request_model.dart';
 import 'package:ltss/models/api/response/request_otp_response.dart';
 import 'package:ltss/models/api/response/token_response.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'auth_service.g.dart';

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/fund_request_entity.dart';
 import 'package:ltss/models/api/request/fund_request_request_model.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'fund_request_service.g.dart';

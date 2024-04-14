@@ -117,4 +117,16 @@ class SessionManager {
     var token = await getToken();
     return token.isNotEmpty && !JwtDecoder.isExpired(token);
   }
+
+  Future<void> clearData() async{
+    await _storage.delete(key: _userId);
+    await _storage.delete(key: _roleId);
+    await _storage.delete(key: _firstName);
+    await _storage.delete(key: _lastName);
+    await _storage.delete(key: _email);
+    await _storage.delete(key: _address);
+    await _storage.delete(key: _mobileNo);
+    await _storage.delete(key: _token);
+    await _storage.delete(key: _profileImage);
+  }
 }

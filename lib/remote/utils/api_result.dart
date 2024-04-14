@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ltss/remote/utils/api_error.dart';
 
-import 'network_exceptions.dart';
 
 part 'api_result.freezed.dart';
 

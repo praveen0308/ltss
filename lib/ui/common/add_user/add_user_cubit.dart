@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:ltss/repository/repository.dart';
-import 'package:ltss/utils/user_type.dart';
-import 'package:meta/meta.dart';
 
 part 'add_user_state.dart';
 

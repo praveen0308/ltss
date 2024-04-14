@@ -11,7 +11,6 @@ import 'package:ltss/models/api/sampurna/sampurna.dart';
 import 'package:ltss/remote/services/dmt_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/api/sampurna/sender.dart';
 
 class DMTRepository with BaseRepository {
   final Dio _dio;
@@ -82,6 +81,17 @@ class DMTRepository with BaseRepository {
     try {
       var result = await _dmtService.updateTransactionStatus(
           transactionId, status, screenshot, comment);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+  Future<ApiResult<DmtTransaction>> updateTransactionVendor(
+      int transactionId, int vendorId,
+      {String? comment}) async {
+    try {
+      var result = await _dmtService.updateTransactionVendor(
+          transactionId,vendorId, comment);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

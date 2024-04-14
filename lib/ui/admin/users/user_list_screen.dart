@@ -14,6 +14,13 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class UserListScreen extends StatefulWidget implements AutoRouteWrapper {
   final UserRole type;
 
+  static Widget create({required UserRole role}){
+    return BlocProvider(
+      create: (context) => UserListScreenCubit(
+          RepositoryProvider.of<UserRepository>(context)),
+      child: UserListScreen(type: role),
+    );
+  }
   const UserListScreen({super.key, required this.type});
 
   @override

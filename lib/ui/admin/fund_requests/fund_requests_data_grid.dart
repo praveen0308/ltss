@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/fund_request_entity.dart';
-import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/utils/user_type.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 

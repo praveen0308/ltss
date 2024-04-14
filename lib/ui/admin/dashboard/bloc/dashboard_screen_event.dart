@@ -3,6 +3,7 @@ part of 'dashboard_screen_bloc.dart';
 class DashboardScreenEvent {}
 
 class Empty extends DashboardScreenEvent {}
+class LogOut extends DashboardScreenEvent {}
 
 class ToggleAddServicePage extends DashboardScreenEvent {
   final ServiceEntity? data;
@@ -55,5 +56,36 @@ class ToggleManageCharges extends DashboardScreenEvent {
   final int serviceId;
 
   ToggleManageCharges(this.serviceId);
+
+}
+class ToggleTransactionDetails extends DashboardScreenEvent {
+  final DmtTransaction dmtTransaction;
+
+  ToggleTransactionDetails(this.dmtTransaction);
+
+
+}
+class ToggleTransactionAction extends DashboardScreenEvent {
+  final DmtTransaction dmtTransaction;
+  final TransactionAction action;
+
+  ToggleTransactionAction(this.dmtTransaction, this.action);
+
+
+}
+
+class ToggleEditTransaction extends DashboardScreenEvent {
+  final DmtTransaction dmtTransaction;
+
+  ToggleEditTransaction(this.dmtTransaction);
+
+
+}
+
+class ToggleEditVendor extends DashboardScreenEvent {
+  final BankVendor bankVendor;
+
+  ToggleEditVendor(this.bankVendor);
+
 
 }

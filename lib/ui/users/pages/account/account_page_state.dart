@@ -5,6 +5,7 @@ sealed class AccountPageState {}
 class AccountPageInitial extends AccountPageState {}
 
 class LoadingUI extends AccountPageState {}
+class LogOutSuccessful extends AccountPageState {}
 
 class UILoaded extends AccountPageState {
   final int userId;

@@ -1,6 +1,5 @@
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:ltss/utils/utils.dart';
 
 part 'user_list_state.dart';
 

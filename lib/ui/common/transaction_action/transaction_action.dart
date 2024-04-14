@@ -34,6 +34,16 @@ class TransactionActionScreen extends StatefulWidget
   const TransactionActionScreen(
       {super.key, required this.transaction, required this.action});
 
+  static Widget create(DmtTransaction transaction,TransactionAction action){
+
+    return BlocProvider(
+      create: (context) => TransactionActionCubit(
+          RepositoryProvider.of<SessionManager>(context),
+          RepositoryProvider.of<DMTRepository>(context),
+          RepositoryProvider.of<TransactionRepository>(context)),
+      child: TransactionActionScreen(transaction: transaction, action: action),
+    );
+  }
   @override
   State<TransactionActionScreen> createState() =>
       _TransactionActionScreenState();
@@ -94,7 +104,9 @@ class _TransactionActionScreenState extends State<TransactionActionScreen> {
                   children: [
                     if (state.uploadSsEnabled)
                       ImagePickerView(
-                        validator: (File? file) {},
+                        validator: (File? file) {
+                          return null;
+                        },
                         onChanged: (File file) {
                           _screenshot = file;
                         },

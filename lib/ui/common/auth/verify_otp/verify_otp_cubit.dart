@@ -1,7 +1,4 @@
-import 'package:bloc/bloc.dart';
 import 'package:ltss/base/base.dart';
-import 'package:ltss/repository/repository.dart';
-import 'package:meta/meta.dart';
 
 part 'verify_otp_state.dart';
 

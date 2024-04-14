@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ltss/models/enums.dart';
-import 'package:ltss/res/res.dart';
 
 class HighlightedLabel extends StatelessWidget {
   final String text;

@@ -185,21 +185,20 @@ class _DMTService implements DMTService {
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'transaction_id': transactionId,
-      r'status': status,
+      r'transaction_status': status,
       r'comment': comment,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = FormData();
-    if(screenshot!=null){
-    _data.files.add(MapEntry(
-      'screenshot',
-      MultipartFile.fromFileSync(
-        screenshot.path,
-        filename: screenshot.path.split(Platform.pathSeparator).last,
-      ),
-    ));
+    if (screenshot != null) {
+      _data.files.add(MapEntry(
+        'screenshot',
+        MultipartFile.fromFileSync(
+          screenshot.path,
+          filename: screenshot.path.split(Platform.pathSeparator).last,
+        ),
+      ));
     }
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DmtTransaction>(Options(
@@ -210,7 +209,42 @@ class _DMTService implements DMTService {
     )
             .compose(
               _dio.options,
-              'dmt/{transaction_id}',
+              'dmt/${transactionId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = DmtTransaction.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<DmtTransaction> updateTransactionVendor(
+    int transactionId,
+    int vendorId,
+    String? comment,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'vendor_id': vendorId,
+      r'comment': comment,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<DmtTransaction>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'dmt/assign_vendor/${transactionId}',
               queryParameters: queryParameters,
               data: _data,
             )

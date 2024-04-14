@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ltss/generated/assets.dart';
 
 class CustomLoading extends StatefulWidget {
-  const CustomLoading({Key? key, this.type = 0}) : super(key: key);
+  const CustomLoading({super.key, this.type = 0});
 
   final int type;
 
@@ -111,8 +111,8 @@ class _CustomLoadingState extends State<CustomLoading>
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Text('loading...'),
+            margin: const EdgeInsets.only(top: 20),
+            child: const Text('loading...'),
           ),
         ]),
       ),

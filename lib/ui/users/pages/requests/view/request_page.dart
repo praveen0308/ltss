@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/models/api/entity/fund_request_entity.dart';
-import 'package:ltss/res/res.dart';
 import 'package:ltss/routes/routes.dart';
 import 'package:ltss/ui/users/pages/requests/view/request_page_cubit.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';

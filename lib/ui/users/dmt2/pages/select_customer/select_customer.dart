@@ -1,12 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/base/base.dart';
-import 'package:ltss/local/session_manager.dart';
-import 'package:ltss/models/api/entity/customer_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:ltss/repository/dmt_repository.dart';
 import 'package:ltss/routes/route_imports.gr.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';
 import 'package:ltss/ui/widgets/view_loading.dart';

@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:meta/meta.dart';
 
 part 'manage_bank_vendor_state.dart';
 

@@ -34,7 +34,7 @@ class SearchView extends StatelessWidget {
 
               )),
           controller: _controller,
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
           onChanged: (txt) {
             onTextChanged(txt);
           },

@@ -1,5 +1,4 @@
 import 'package:ltss/base/base.dart';
-import 'package:ltss/models/api/entity/user_entity.dart';
 
 part 'edit_profile_state.dart';
 

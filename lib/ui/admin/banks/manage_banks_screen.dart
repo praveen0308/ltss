@@ -10,7 +10,17 @@ import 'package:ltss/ui/widgets/widgets.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../../../repository/bank_repository.dart';
+
 class ManageBanksScreen extends StatefulWidget {
+  static Widget create(){
+    return BlocProvider(
+      create: (context) =>
+      ManageBanksCubit(RepositoryProvider.of<BankRepository>(context))
+        ..loadBanks(),
+      child: const ManageBanksScreen(),
+    );
+  }
   const ManageBanksScreen({super.key});
 
   @override
@@ -106,35 +116,35 @@ class _ManageBanksScreenState extends State<ManageBanksScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0, vertical: 2),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Name'))),GridColumn(
+                                  child: const Text('Name'))),GridColumn(
                               columnName: 'ifsc',
                               columnWidthMode: ColumnWidthMode.fill,
                               label: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0, vertical: 2),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('IFSC'))),
+                                  child: const Text('IFSC'))),
                           GridColumn(
                               columnName: 'min',
                               columnWidthMode: ColumnWidthMode.fill,
                               label: Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Min. Amount'))),
+                                  child: const Text('Min. Amount'))),
                           GridColumn(
                               columnName: 'max',
                               columnWidthMode: ColumnWidthMode.fill,
                               label: Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Max. Amount'))),
+                                  child: const Text('Max. Amount'))),
                           GridColumn(
                               columnName: 'is_active',
                               columnWidthMode: ColumnWidthMode.fill,
                               label: Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  child: const Text(
                                     'Is Active',
                                     softWrap: false,
                                   ))),
@@ -142,16 +152,16 @@ class _ManageBanksScreenState extends State<ManageBanksScreen> {
                               columnName: 'update',
                               columnWidthMode: ColumnWidthMode.auto,
                               label: Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Update'))),
+                                  child: const Text('Update'))),
                           GridColumn(
                               columnName: 'delete',
                               columnWidthMode: ColumnWidthMode.auto,
                               label: Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Delete'))),
+                                  child: const Text('Delete'))),
                         ]),
                   ),
                 );

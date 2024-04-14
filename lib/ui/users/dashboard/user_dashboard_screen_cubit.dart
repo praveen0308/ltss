@@ -11,7 +11,6 @@ import 'package:ltss/ui/users/pages/transactions/transactions_page.dart';
 import 'package:ltss/ui/users/pages/transactions/transactions_page_cubit.dart';
 import 'package:ltss/ui/users/pages/user_list/user_list_cubit.dart';
 import 'package:ltss/ui/users/pages/user_list/user_list_page.dart';
-import 'package:ltss/utils/user_type.dart';
 
 import '../pages/requests/fund_requests_page.dart';
 

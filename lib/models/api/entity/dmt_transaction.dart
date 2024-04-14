@@ -61,7 +61,7 @@ class DmtTransaction {
   int? vendorId;
   String? senderName;
   String? senderMobileNo;
-  int? beneficiaryId;
+  String? beneficiaryId;
   String? beneficiaryName;
   String? accountNumber;
   String? ifsc;
@@ -85,7 +85,7 @@ DmtTransaction copyWith({
   int? vendorId,
   String? senderName,
   String? senderMobileNo,
-  int? beneficiaryId,
+  String? beneficiaryId,
   String? beneficiaryName,
   String? accountNumber,
   String? ifsc,

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:ltss/base/base.dart';
-import 'package:ltss/repository/auth_repository.dart';
 
 part 'enter_mobile_number_state.dart';
 

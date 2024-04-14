@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +6,7 @@ import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/charge_entity.dart';
 import 'package:ltss/models/api/entity/commission_entity.dart';
+import 'package:ltss/models/api/entity/dmt_transaction.dart';
 import 'package:ltss/models/api/entity/service_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/ui/admin/banks/add_bank/add_bank_cubit.dart';
@@ -19,12 +17,15 @@ import 'package:ltss/ui/admin/manage_dmt/manage_charge/manage_charge.dart';
 import 'package:ltss/ui/admin/manage_dmt/manage_charge/manage_charge_cubit.dart';
 import 'package:ltss/ui/admin/manage_dmt/manage_commission/manage_commission.dart';
 import 'package:ltss/ui/admin/manage_dmt/manage_commission/manage_commission_cubit.dart';
+import 'package:ltss/ui/admin/manage_dmt/transactions/edit_transaction/edit_transaction_screen.dart';
 import 'package:ltss/ui/admin/services/pages/charges/add_charge/add_charge.dart';
 import 'package:ltss/ui/admin/services/pages/commission/add_commission/add_commission_cubit.dart';
 import 'package:ltss/ui/admin/services/pages/service/add/add_service.dart';
 import 'package:ltss/ui/admin/services/pages/service/add/add_service_cubit.dart';
 import 'package:ltss/ui/common/add_user/add_user.dart';
 import 'package:ltss/ui/common/add_user/add_user_cubit.dart';
+import 'package:ltss/ui/common/transaction_action/transaction_action.dart';
+import 'package:ltss/ui/common/transaction_detail/transaction_detail.dart';
 import 'package:ltss/ui/common/user_detail/user_detail_cubit.dart';
 import 'package:ltss/ui/common/user_detail/user_detail_screen.dart';
 
@@ -35,10 +36,16 @@ part 'dashboard_screen_event.dart';
 
 part 'dashboard_screen_state.dart';
 
-class DashboardScreenBloc
-    extends Bloc<DashboardScreenEvent, DashboardScreenState> {
-  DashboardScreenBloc() : super(const DashboardScreenState()) {
-    on<DashboardScreenEvent>((event, emit) {
+class DashboardScreenBloc extends Bloc<DashboardScreenEvent, DashboardScreenState> {
+
+  final SessionManager _sessionManager;
+
+  DashboardScreenBloc(this._sessionManager) : super(const DashboardScreenState()) {
+    on<DashboardScreenEvent>((event, emit) async {
+      if (event is LogOut) {
+        await _sessionManager.clearData();
+        emit(LogOutSuccessfully());
+      }
       if (event is ToggleAddServicePage) {
         emit(DashboardScreenState(
             view: BlocProvider(
@@ -128,6 +135,19 @@ class DashboardScreenBloc
               RepositoryProvider.of<ChargeRepository>(context)),
           child: ManageChargeScreen(serviceId: event.serviceId),
         )));
+      }
+      if (event is ToggleTransactionDetails) {
+        emit(DashboardScreenState(
+            view: TransactionDetailScreen.create(event.dmtTransaction)));
+      }
+      if (event is ToggleTransactionAction) {
+        emit(DashboardScreenState(
+            view: TransactionActionScreen.create(
+                event.dmtTransaction, event.action)));
+      }
+      if (event is ToggleEditTransaction) {
+        emit(DashboardScreenState(
+            view: EditTransactionScreen.create(event.dmtTransaction)));
       }
       if (event is Empty) {
         emit(const DashboardScreenState(view: null));

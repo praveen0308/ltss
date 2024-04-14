@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,6 +83,8 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                   isRequired: false,
                   onDateSelected: (DateTime dateTime) {},
                   validator: (String? val) {
+                    return null;
+                  
 
                   },
                 ),
@@ -101,6 +102,8 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                 ),
                 TextInputFieldView(
                     label: "Address", textEditingController: _address,validator: (s){
+                      return null;
+                    
 
                 },),
               ],

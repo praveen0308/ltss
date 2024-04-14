@@ -63,12 +63,12 @@ class FundRequestRepository with BaseRepository {
   }
 
   Future<ApiResult<FundRequestEntity>> addNewFundRequest(
-      int receiverId, double amount) async {
+      int receiverId, double amount,String comment) async {
     try {
       var userId = await _sessionManager.getUserId();
       var result = await _fundRequestService.raiseFundRequest(
           FundRequestRequestModel(
-              sender: userId, receiver: receiverId, amount: amount));
+              sender: userId, receiver: receiverId, amount: amount,comment: comment));
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

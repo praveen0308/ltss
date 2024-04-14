@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/response/post_kyc_response.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'kyc_service.g.dart';

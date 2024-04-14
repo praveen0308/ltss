@@ -4,12 +4,9 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
-import 'package:ltss/res/colors.dart';
 import 'package:ltss/ui/admin/banks/select_vendor/select_vendor.dart';
 import 'package:ltss/ui/admin/banks/select_vendor/select_vendor_cubit.dart';
 import 'package:ltss/ui/admin/dashboard/bloc/dashboard_screen_bloc.dart';
-import 'package:ltss/ui/widgets/view_error_page.dart';
-import 'package:ltss/ui/widgets/view_loading.dart';
 import 'package:ltss/ui/widgets/widgets.dart';
 import 'package:ltss/utils/operations.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -65,7 +62,7 @@ class _AddBankPageState extends State<AddBankPage> {
 
   void _dialogStack() async {
     stackDialog({
-      required AlignmentGeometry alignment,
+      required Alignment alignment,
       required String tag,
       double width = double.infinity,
       double height = double.infinity,

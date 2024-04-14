@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ltss/base/base.dart';
 import 'package:ltss/generated/assets.dart';
 import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/routes/routes.dart';
@@ -19,8 +18,9 @@ class SplashScreen extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          SplashScreenCubit(RepositoryProvider.of<SessionManager>(context)),
+      create: (context) => SplashScreenCubit(
+          RepositoryProvider.of<SessionManager>(context),
+          RepositoryProvider.of<AuthRepository>(context)),
       child: this,
     );
   }
@@ -58,7 +58,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-
                   children: [
                     const Spacer(),
                     Image.asset(

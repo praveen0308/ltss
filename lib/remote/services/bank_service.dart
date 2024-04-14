@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
 import 'package:ltss/models/api/entity/bank_vendor.dart';
-import 'package:ltss/models/api/request/fund_request_request_model.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'bank_service.g.dart';

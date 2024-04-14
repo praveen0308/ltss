@@ -11,7 +11,6 @@ import 'package:ltss/ui/widgets/view_error_page.dart';
 import 'package:ltss/ui/widgets/view_loading.dart';
 import 'package:ltss/ui/widgets/widgets.dart';
 
-import '../../../routes/route_imports.gr.dart';
 
 @RoutePage()
 class UserDetailScreen extends StatefulWidget implements AutoRouteWrapper {

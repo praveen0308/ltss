@@ -36,7 +36,7 @@ class BaseScreen extends StatefulWidget {
   final Function(dynamic data)? navigationCallback;
 
   const BaseScreen({
-    Key? key,
+    super.key,
     this.title = "",
     this.isIcon = false,
     this.onAction,
@@ -61,7 +61,7 @@ class BaseScreen extends StatefulWidget {
 
     this.onPrimaryActionClick,
     this.onSecondaryClick, this.isToolbarStacked=false, this.toolbarBackgroundColor, this.scrollController, this.toolbarActionEnabled=true,
-  }) : super(key: key);
+  });
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();

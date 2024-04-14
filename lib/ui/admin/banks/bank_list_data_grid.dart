@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
-import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class BankDataSource extends DataGridSource {

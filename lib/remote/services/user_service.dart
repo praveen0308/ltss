@@ -4,7 +4,6 @@ import 'package:ltss/models/api/entity/bank_vendor.dart';
 import 'package:ltss/models/api/entity/user_detail_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/models/api/entity/user_stats.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'user_service.g.dart';

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:ltss/models/api/entity/bank_entity.dart';
 
 class UserEntity extends Equatable{
   UserEntity({

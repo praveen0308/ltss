@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/ui/common/add_user/add_user_cubit.dart';
-import 'package:ltss/ui/widgets/view_dropdown_field.dart';
 import 'package:ltss/ui/widgets/view_image_picker.dart';
 import 'package:ltss/ui/widgets/widgets.dart';
-import 'package:ltss/utils/user_type.dart';
 
 class KYCDetailPage extends StatefulWidget {
   const KYCDetailPage({super.key});
@@ -45,14 +43,18 @@ class _KYCDetailPageState extends State<KYCDetailPage> {
               isRequired: true,
             ),
             ImagePickerView(
-              validator: (File? file) {},
+              validator: (File? file) {
+                return null;
+              },
               onChanged: (File file) {
                 shopImage = file;
               },
               label: "Shop Image",
             ),
             ImagePickerView(
-              validator: (File? file) {},
+              validator: (File? file) {
+                return null;
+              },
               onChanged: (File file) {
                 profileImage = file;
               },

@@ -56,7 +56,7 @@ class TextInputFieldView extends StatelessWidget {
           maxLength: maxLength,
           enabled: isEnabled,
           keyboardType: inputType,
-          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+          style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
           decoration: InputDecoration(
               suffixIcon: suffixIcon,
               hintText: placeHolder,

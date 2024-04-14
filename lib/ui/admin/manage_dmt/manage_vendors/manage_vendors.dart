@@ -47,7 +47,11 @@ class _ManageDMTVendorsScreenState extends State<ManageDMTVendorsScreen> {
                     context
                         .read<DashboardScreenBloc>()
                         .add(ToggleUserDetailPage(userId: id));
-                  }, items: vendors, onEditClick: (int id) {  }, onDeleteClick: (int id) {  });
+                  }, items: vendors, onEditClick: (int id) {
+                var user =
+                vendors.firstWhere((element) => element.vendorId == id);
+                context.read<DashboardScreenBloc>().add(ToggleAddDmtVendorPage(bankVendor: user));
+              }, onDeleteClick: (int id) {  });
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SfDataGridTheme(

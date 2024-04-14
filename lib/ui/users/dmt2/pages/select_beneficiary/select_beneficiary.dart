@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/base/base.dart';
-import 'package:ltss/models/api/entity/beneficiary_entity.dart';
 import 'package:ltss/models/api/sampurna/sampurna.dart';
 import 'package:ltss/routes/route_imports.gr.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';

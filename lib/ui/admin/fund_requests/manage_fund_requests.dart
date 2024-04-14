@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ltss/repository/fund_request_repository.dart';
 import 'package:ltss/ui/admin/fund_requests/fund_requests_data_grid.dart';
 import 'package:ltss/ui/admin/fund_requests/fund_requests_history_data_grid.dart';
 import 'package:ltss/ui/widgets/view_error_page.dart';
@@ -11,6 +12,14 @@ import 'manage_fund_requests_cubit.dart';
 
 class ManageFundRequestsScreen extends StatefulWidget {
   const ManageFundRequestsScreen({super.key});
+
+  static Widget create(){
+    return BlocProvider(
+      create: (context) => ManageFundRequestsCubit(
+          RepositoryProvider.of<FundRequestRepository>(context)),
+      child: const ManageFundRequestsScreen(),
+    );
+  }
 
   @override
   State<ManageFundRequestsScreen> createState() => _ManageFundRequestsScreenState();
@@ -100,35 +109,35 @@ class _ManageFundRequestsScreenState extends State<ManageFundRequestsScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 2),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Sender'))),
+                                          child: const Text('Sender'))),
                                   GridColumn(
                                       columnName: 'amount',
                                       columnWidthMode: ColumnWidthMode.fill,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Amount'))),
+                                          child: const Text('Amount'))),
                                   GridColumn(
                                       columnName: 'status',
                                       columnWidthMode: ColumnWidthMode.fill,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Status'))),
+                                          child: const Text('Status'))),
                                   GridColumn(
                                       columnName: 'reject',
                                       columnWidthMode: ColumnWidthMode.auto,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Reject'))),
+                                          child: const Text('Reject'))),
                                   GridColumn(
                                       columnName: 'accept',
                                       columnWidthMode: ColumnWidthMode.auto,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Approve'))),
+                                          child: const Text('Approve'))),
                                 ]),
                           ),
                           Text("History",style: Theme.of(context).textTheme.titleMedium,),
@@ -171,21 +180,21 @@ class _ManageFundRequestsScreenState extends State<ManageFundRequestsScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 2),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Sender'))),
+                                          child: const Text('Sender'))),
                                   GridColumn(
                                       columnName: 'amount',
                                       columnWidthMode: ColumnWidthMode.fill,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Amount'))),
+                                          child: const Text('Amount'))),
                                   GridColumn(
                                       columnName: 'status',
                                       columnWidthMode: ColumnWidthMode.fill,
                                       label: Container(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Status'))),
+                                          child: const Text('Status'))),
 
                                 ]),
                           ),

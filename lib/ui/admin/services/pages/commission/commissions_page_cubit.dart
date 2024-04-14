@@ -1,6 +1,5 @@
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/commission_entity.dart';
-import 'package:meta/meta.dart';
 
 part 'commissions_page_state.dart';
 

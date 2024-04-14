@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:ltss/base/base.dart';
 import 'package:tuple/tuple.dart';
 
 extension ListExtentions<T> on List<T> {
@@ -92,4 +91,8 @@ List<Tuple2<String,String>> splitIntoTuples(String input) {
 
   }
   return records;
+}
+
+extension ListExtensions<T> on List<T>?{
+  List<T> orEmpty()=> this??List<T>.empty();
 }

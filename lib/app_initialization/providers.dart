@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/remote/utils/api_constats.dart';
+import 'package:ltss/repository/transaction_repository.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:ltss/repository/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,8 @@ class AppProviders {
               CommissionRepository(sessionManager, dio, preferences)),
       RepositoryProvider(
           create: (context) => DMTRepository(sessionManager, dio, preferences)),
+      RepositoryProvider(
+          create: (context) => TransactionRepository(sessionManager, dio, preferences)),
       RepositoryProvider(
           create: (context) =>
               FundRequestRepository(sessionManager, dio, preferences)),

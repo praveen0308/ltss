@@ -22,9 +22,11 @@ class LoadWalletStatsFailed extends WalletScreenState {
 }
 class LoadingRecentTransactions extends WalletScreenState {}
 class ReceivedRecentTransactions extends WalletScreenState {
-  final List<DmtTransaction> transactions;
+  final List<WalletLedgerEntity> entries;
+  final int totalCount;
+  final int skip;
 
-  ReceivedRecentTransactions(this.transactions);
+  ReceivedRecentTransactions(this.entries, this.totalCount, this.skip);
 
 }
 class LoadRecentTransactionsFailed extends WalletScreenState {

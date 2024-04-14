@@ -47,14 +47,14 @@ mixin BasePageState<T extends StatefulWidget> on State<T> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Not Connected'),
-            content: Text('Please check your internet connection.'),
+            title: const Text('Not Connected'),
+            content: const Text('Please check your internet connection.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -77,14 +77,14 @@ mixin BasePageState<T extends StatefulWidget> on State<T> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Not Connected'),
-          content: Text('Please check your internet connection.'),
+          title: const Text('Not Connected'),
+          content: const Text('Please check your internet connection.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );

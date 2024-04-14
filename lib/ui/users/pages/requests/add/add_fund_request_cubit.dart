@@ -27,10 +27,10 @@ class AddFundRequestCubit extends BaseCubit<AddFundRequestState> {
     });
   }
 
-  Future<void> addFundRequest(int distributor,double amount) async {
+  Future<void> addFundRequest(int distributor,double amount,String comment) async {
     emit(AddingRequest());
 
-    var result = await _fundRequestRepository.addNewFundRequest( distributor, amount);
+    var result = await _fundRequestRepository.addNewFundRequest( distributor, amount,comment);
 
     result.when(success: (result) {
       emit(AddedSuccessfully());

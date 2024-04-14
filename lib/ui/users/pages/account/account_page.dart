@@ -26,7 +26,9 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       body: BlocConsumer<AccountPageCubit, AccountPageState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if(state is LogOutSuccessful){
+            AutoRouter.of(context).pushAndPopUntil(const EnterMobileNumberRoute(), predicate:(Route<dynamic> route) => false );
+          }
         },
         builder: (context, state) {
           switch (state) {
@@ -79,12 +81,12 @@ class _AccountPageState extends State<AccountPage> {
                           )
                         ],
                       ),
-                      FilledButton(
+                      /*FilledButton(
                           onPressed: () {
                             AutoRouter.of(context)
                                 .push(const EditProfileRoute());
                           },
-                          child: const Text("Edit Profile")),
+                          child: const Text("Edit Profile")),*/
                       const SizedBox(height: 16),
                       menuItem(Icons.info_outline_rounded, "My Information",
                           () {
@@ -96,8 +98,8 @@ class _AccountPageState extends State<AccountPage> {
                       const Divider(),
                       menuItem(Icons.star_half_rounded, "Rate Us", () {}),
                       menuItem(Icons.share_rounded, "Share Us", () {}),
-                      menuItem(Icons.logout_rounded, "Log Out", () {
-                        showDialog<String>(
+                      menuItem(Icons.logout_rounded, "Log Out", () async {
+                        var popResult = await showDialog<bool>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
                                   title: const Text('Log Out'),
@@ -106,16 +108,21 @@ class _AccountPageState extends State<AccountPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () =>
-                                          Navigator.pop(context, 'Cancel'),
+                                          Navigator.pop(context),
                                       child: const Text('Cancel'),
                                     ),
                                     TextButton(
                                       onPressed: () =>
-                                          Navigator.pop(context, 'Yes'),
+                                          Navigator.pop(context, true),
                                       child: const Text('OK'),
                                     ),
                                   ],
                                 ));
+
+                        if(popResult!=null && popResult == true){
+                          if(context.mounted) context.read<AccountPageCubit>().logout();
+                        }
+
                       }, iconColor: Colors.red),
                     ],
                   ),
@@ -123,6 +130,8 @@ class _AccountPageState extends State<AccountPage> {
               );
             case LoadUIFailed():
               return const ErrorPageView();
+            case LogOutSuccessful():
+              return Container();
           }
         },
       ),

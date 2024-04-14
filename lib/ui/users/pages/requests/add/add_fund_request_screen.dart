@@ -5,7 +5,6 @@ import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/ui/users/pages/requests/add/add_fund_request_cubit.dart';
 import 'package:ltss/ui/widgets/view_text_input_field.dart';
-import 'package:ltss/utils/utils.dart';
 
 @RoutePage()
 class AddFundRequestScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -31,11 +30,19 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
   var selectedDistributor = 0;
   final List<UserEntity> distributors = List.empty(growable: true);
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
     context.read<AddFundRequestCubit>().loadDistributors();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _commentController.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,7 +56,10 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("Distributors",style: Theme.of(context).textTheme.titleLarge,),
+                Text(
+                  "Distributors",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -63,9 +73,7 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
                         groupValue: selectedDistributor,
                         onChanged: (v) {
                           selectedDistributor = v ?? 0;
-                          setState(() {
-
-                          });
+                          setState(() {});
                         });
                   },
                   itemCount: distributors.length,
@@ -76,12 +84,19 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
                   isRequired: true,
                   inputType: TextInputType.number,
                 ),
+                TextInputFieldView(
+                  label: "Comment",
+                  textEditingController: _commentController,
+                  isRequired: false,
+                  inputType: TextInputType.text,
+                ),
                 const Spacer(),
                 FilledButton(
                     onPressed: () {
                       context.read<AddFundRequestCubit>().addFundRequest(
                           selectedDistributor,
-                          double.parse(_amountController.text));
+                          double.parse(_amountController.text),
+                          _commentController.text);
                     },
                     child: const Text("Submit"))
               ],
@@ -102,7 +117,6 @@ class _AddFundRequestScreenState extends State<AddFundRequestScreen>
 
           if (state is AddFundRequestFailed) {
             showSnackBar(context, state.msg);
-
           }
 
           if (state is LoadDistributorsFailed) {

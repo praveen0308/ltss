@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:ltss/base/base.dart';
 import 'package:ltss/models/api/entity/bank_entity.dart';
@@ -119,7 +118,7 @@ class DmtCheckoutCubit extends BaseCubit<DmtCheckoutState> {
       serviceId: 1,
       senderName: sender.senderName,
       senderMobileNo: sender.senderMobile,
-      beneficiaryId: int.parse(beneficiary.beneID ?? "0"),
+      beneficiaryId:beneficiary.beneID ?? "0",
       beneficiaryName: beneficiary.beneName,
       accountNumber: beneficiary.accountNo,
       ifsc: beneficiary.ifsc,

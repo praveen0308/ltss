@@ -16,3 +16,5 @@ class DashboardScreenState extends Equatable {
     );
   }
 }
+
+class LogOutSuccessfully extends DashboardScreenState{}

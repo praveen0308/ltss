@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ltss/models/api/entity/beneficiary_entity.dart';
-import 'package:ltss/models/api/entity/customer_entity.dart';
 import 'package:ltss/models/api/entity/user_entity.dart';
 import 'package:ltss/routes/routes.dart';
 import 'package:ltss/ui/widgets/view_text_input_field.dart';
@@ -45,18 +44,18 @@ class _DMTScreenState extends State<DMTScreen> {
       body: Column(
         children: [
           ListTile(
-            title: Text("Customer"),
+            title: const Text("Customer"),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (customer != null)
                   ListTile(
-                    title: Text("Name"),
+                    title: const Text("Name"),
                     subtitle: Text(customer?.firstName ?? "Nil"),
                   ),
                 if (customer != null)
                   ListTile(
-                    title: Text("Mobile Number"),
+                    title: const Text("Mobile Number"),
                     subtitle: Text(customer?.mobileNo ?? "Nil"),
                   ),
                 FilledButton(
@@ -77,33 +76,33 @@ class _DMTScreenState extends State<DMTScreen> {
             ),
           ),
           ListTile(
-            title: Text("Beneficiary"),
+            title: const Text("Beneficiary"),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (beneficiary != null)
                   ListTile(
-                    title: Text("Name"),
+                    title: const Text("Name"),
                     subtitle: Text(beneficiary?.name ?? "Nil"),
                   ),
                 if (beneficiary != null)
                   ListTile(
-                    title: Text("Account Number"),
+                    title: const Text("Account Number"),
                     subtitle: Text(beneficiary?.accountNumber ?? "Nil"),
                   ),
                 if (beneficiary != null)
                   ListTile(
-                    title: Text("Bank"),
+                    title: const Text("Bank"),
                     subtitle: Text(beneficiary?.bank ?? "Nil"),
                   ),
                 if (beneficiary != null)
                   ListTile(
-                    title: Text("IFSC"),
+                    title: const Text("IFSC"),
                     subtitle: Text(beneficiary?.ifscCode ?? "Nil"),
                   ),
                 if (beneficiary != null)
                   ListTile(
-                    title: Text("Mobile Number"),
+                    title: const Text("Mobile Number"),
                     subtitle: Text(beneficiary?.mobileNumber ?? "Nil"),
                   ),
                 FilledButton(

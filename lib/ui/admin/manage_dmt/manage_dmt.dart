@@ -7,7 +7,6 @@ import 'package:ltss/ui/admin/manage_dmt/manage_vendors/manage_vendors.dart';
 import 'package:ltss/ui/admin/manage_dmt/manage_vendors/manage_vendors_cubit.dart';
 import 'package:ltss/ui/admin/manage_dmt/transactions/dmt_transactions.dart';
 import 'package:ltss/ui/admin/manage_dmt/transactions/dmt_transactions_cubit.dart';
-import 'package:ltss/ui/widgets/widgets.dart';
 
 class ManageDMTScreen extends StatefulWidget {
   const ManageDMTScreen({super.key});

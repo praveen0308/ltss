@@ -196,11 +196,11 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                 const SizedBox(
                   height: 32,
                 ),
-                OutlinedButton(
+                /*OutlinedButton(
                     onPressed: () {
                       AutoRouter.of(context).push(const EditProfileRoute());
                     },
-                    child: const Text("Edit Profile")),
+                    child: const Text("Edit Profile")),*/
               ],
             )),
           );

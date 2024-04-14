@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/beneficiary_entity.dart';
 import 'package:ltss/models/api/entity/dmt_transaction.dart';
 
-import 'package:ltss/models/api/request/add_dmt_transaction_request.dart';
 import 'package:retrofit/http.dart';
 import 'package:ltss/models/api/sampurna/sampurna.dart';
 
@@ -39,9 +38,16 @@ abstract class DMTService {
   @PUT("dmt/{transaction_id}")
   @MultiPart()
   Future<DmtTransaction> updateTransactionStatus(
-    @Query("transaction_id") int transactionId,
-    @Query("status") String status,
+    @Path("transaction_id") int transactionId,
+    @Query("transaction_status") String status,
     @Part(name: "screenshot") File? screenshot,
+    @Query("comment") String? comment,
+  );
+
+  @PUT("dmt/assign_vendor/{transaction_id}")
+  Future<DmtTransaction> updateTransactionVendor(
+    @Path("transaction_id") int transactionId,
+    @Query("vendor_id") int vendorId,
     @Query("comment") String? comment,
   );
 

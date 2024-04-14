@@ -2,7 +2,6 @@
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/commission_entity.dart';
 import 'package:ltss/models/api/request/create_commission_request_model.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'commission_service.g.dart';

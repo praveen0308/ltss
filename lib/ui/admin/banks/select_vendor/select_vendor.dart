@@ -17,6 +17,14 @@ class SelectVendorScreen extends StatefulWidget {
   final BankEntity? bank;
   final int? assignedVendor;
 
+  static Widget create(){
+    return BlocProvider(
+      create: (context) => SelectVendorCubit(
+          RepositoryProvider.of<UserRepository>(context),
+          RepositoryProvider.of<BankRepository>(context)),
+      child: const SelectVendorScreen(),
+    );
+  }
   const SelectVendorScreen({super.key, this.bank, this.assignedVendor});
 
   @override

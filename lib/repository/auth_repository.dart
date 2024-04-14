@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ltss/local/session_manager.dart';
@@ -10,7 +9,6 @@ import 'package:ltss/models/api/response/request_otp_response.dart';
 import 'package:ltss/models/api/response/token_response.dart';
 import 'package:ltss/remote/services/auth_service.dart';
 import 'package:ltss/base/base_repository.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository with BaseRepository {

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:ltss/models/api/entity/action_entity.dart';
-import 'package:ltss/utils/constants.dart';
 import 'package:retrofit/http.dart';
 
 part 'action_service.g.dart';

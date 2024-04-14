@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 class CustomImageFormField extends StatelessWidget {
   CustomImageFormField({
-    Key? key,
+    super.key,
     required this.validator,
     required this.onChanged,
     this.customView,
-  }) : super(key: key);
+  });
   final String? Function(File?) validator;
   final Function(File) onChanged;
   final Widget? customView;

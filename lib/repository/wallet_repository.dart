@@ -5,6 +5,8 @@ import 'package:ltss/base/base_repository.dart';
 import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/local/token_manager.dart';
 import 'package:ltss/models/api/entity/wallet_entity.dart';
+import 'package:ltss/models/api/entity/wallet_ledger_entity.dart';
+import 'package:ltss/models/api/response/WalletLedgerResponse.dart';
 import 'package:ltss/remote/services/wallet_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +34,15 @@ class WalletRepository with BaseRepository {
   Future<ApiResult<WalletEntity>> getWallet(String walletId) async {
     try {
       var result = await _walletService.getWallet(walletId);
+      return ApiResult.success(result);
+    } on Exception catch (e) {
+      return ApiResult.failure(NetworkExceptions.getApiError(e));
+    }
+  }
+
+  Future<ApiResult<WalletLedgerResponse>> getWalletLedger(int skip,int limit) async {
+    try {
+      var result = await _walletService.getWalletLedger(skip,limit);
       return ApiResult.success(result);
     } on Exception catch (e) {
       return ApiResult.failure(NetworkExceptions.getApiError(e));

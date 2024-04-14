@@ -13,19 +13,24 @@ import 'package:ltss/ui/admin/users/user_list_screen_cubit.dart';
 import 'package:ltss/ui/admin/users/users.dart';
 import 'package:ltss/ui/admin/wallet/wallet.dart';
 import 'package:ltss/ui/admin/wallet/wallet_screen_cubit.dart';
-import 'package:ltss/ui/users/dmt/dmt_screen.dart';
 import 'package:ltss/utils/utils.dart';
 
 class MainPanel extends StatefulWidget {
   final PageController pageController;
+  final List<Widget> pages;
 
-  const MainPanel({super.key, required this.pageController});
+  const MainPanel({super.key, required this.pageController, required this.pages});
 
   @override
   State<MainPanel> createState() => _MainPanelState();
 }
 
 class _MainPanelState extends State<MainPanel> {
+  @override
+  void initState() {
+    widget.pages.removeLast();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,52 +40,7 @@ class _MainPanelState extends State<MainPanel> {
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: PageView(
         controller: widget.pageController,
-        children: [
-          const HomeScreen(),
-          BlocProvider(
-            create: (context) => ManageFundRequestsCubit(
-                RepositoryProvider.of<FundRequestRepository>(context)),
-            child: const ManageFundRequestsScreen(),
-          ),
-          BlocProvider(
-            create: (context) => UserListScreenCubit(
-                RepositoryProvider.of<UserRepository>(context)),
-            child: const UserListScreen(type: UserRole.distributor),
-          ),
-          BlocProvider(
-            create: (context) => UserListScreenCubit(
-                RepositoryProvider.of<UserRepository>(context)),
-            child: const UserListScreen(type: UserRole.retailer),
-          ),
-          BlocProvider(
-            create: (context) => UserListScreenCubit(
-                RepositoryProvider.of<UserRepository>(context)),
-            child: const UserListScreen(type: UserRole.vendor),
-          ),
-          BlocProvider(
-            create: (context) => UserListScreenCubit(
-                RepositoryProvider.of<UserRepository>(context)),
-            child: const UserListScreen(type: UserRole.customer),
-          ),
-          BlocProvider(
-            create: (context) => WalletScreenCubit(
-              RepositoryProvider.of<WalletRepository>(context),
-              RepositoryProvider.of<DMTRepository>(context),
-            )..loadWalletBalance(),
-            child: const WalletScreen(),
-          ),
-          const ServicesScreen(),
-          BlocProvider(
-            create: (context) =>
-            ManageBanksCubit(RepositoryProvider.of<BankRepository>(context))
-              ..loadBanks(),
-            child: const ManageBanksScreen(),
-          ),
-          const ReportScreen(),
-          const ManageDMTScreen(),
-
-
-        ],
+        children: widget.pages,
       ),
     );
   }

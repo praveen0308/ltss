@@ -10,8 +10,7 @@ class AccountPageCubit extends BaseCubit<AccountPageState> {
 
   Future<void> loadUI() async {
     emit(LoadingUI());
-    try{
-
+    try {
       var userId = await _sessionManager.getUserId();
       var name = await _sessionManager.getFirstName();
       var roleId = await _sessionManager.getRoleId();
@@ -23,10 +22,17 @@ class AccountPageCubit extends BaseCubit<AccountPageState> {
       String version = packageInfo.version;
       String buildNumber = packageInfo.buildNumber;
 
-      emit(UILoaded(
-          userId,name, mobileNumber, roleId, role ?? "", profileImage, "v$version"));
-    }catch(e){
+      emit(UILoaded(userId, name, mobileNumber, roleId, role ?? "",
+          profileImage, "v$version"));
+    } catch (e) {
       emit(LoadUIFailed("Something went wrong!!!"));
     }
   }
+
+  Future<void> logout() async {
+    await _sessionManager.clearData();
+    emit(LogOutSuccessful());
+  }
+
+
 }

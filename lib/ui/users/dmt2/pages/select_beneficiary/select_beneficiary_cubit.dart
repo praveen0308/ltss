@@ -1,5 +1,4 @@
 import 'package:ltss/base/base.dart';
-import 'package:ltss/models/api/entity/beneficiary_entity.dart';
 import 'package:ltss/models/api/sampurna/sampurna.dart';
 
 part 'select_beneficiary_state.dart';

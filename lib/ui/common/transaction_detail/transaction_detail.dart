@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +19,14 @@ class TransactionDetailScreen extends StatefulWidget
   final DmtTransaction transaction;
 
   const TransactionDetailScreen({super.key, required this.transaction});
+
+  static Widget create(DmtTransaction dmtTransaction){
+    return BlocProvider(
+      create: (context) => TransactionDetailCubit(
+          RepositoryProvider.of<SessionManager>(context)),
+      child: TransactionDetailScreen(transaction: dmtTransaction),
+    );
+  }
 
   @override
   State<TransactionDetailScreen> createState() =>
@@ -141,9 +148,10 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                 if (state.canMarkVerified)
                   FilledButton(
                     onPressed: () {
-                      AutoRouter.of(context).push(TransactionActionRoute(
+                      /*AutoRouter.of(context).push(TransactionActionRoute(
                           transaction: transaction,
-                          action: TransactionAction.verify));
+                          action: TransactionAction.verify));*/
+                      context.read<DashboardScreenBloc>().add(ToggleTransactionAction(transaction,TransactionAction.verify));
                     },
                     style:
                         FilledButton.styleFrom(backgroundColor: Colors.green),

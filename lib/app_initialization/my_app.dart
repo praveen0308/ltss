@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ltss/app_initialization/providers.dart';
-import 'package:ltss/local/session_manager.dart';
 import 'package:ltss/routes/routes.dart';
 import 'package:ltss/ui/widgets/loading_widget.dart';
 
